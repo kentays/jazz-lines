@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ReactDOM from "react-dom/client";
 import LineInput from "./components/LineInput";
 import NotationView from "./components/NotationView";
 import Collapsible from "./components/Collapsible";
@@ -15,6 +16,10 @@ function App() {
   });
 
   const [currentSequence, setCurrentSequence] = useState([]);
+  const [savedSequences, setSavedSequences] = useState(() => {
+    const saved = localStorage.getItem("savedSequences");
+    return saved ? JSON.parse(saved) : [];
+  });
   const [editingIndex, setEditingIndex] = useState(null);
   const [editText, setEditText] = useState("");
   const [editTags, setEditTags] = useState("");
@@ -110,6 +115,114 @@ function App() {
     setHighlight({ area: null, lineIdx: -1, noteIdx: -1 });
   };
 
+  const saveSequence = () => {
+    if (currentSequence.length === 0) {
+      alert("No sequence to save.");
+      return;
+    }
+    const name = prompt("Enter a name for this sequence:");
+    if (!name || name.trim() === "") return;
+    const newSeq = { name: name.trim(), sequence: [...currentSequence] };
+    const updated = [...savedSequences, newSeq];
+    setSavedSequences(updated);
+    localStorage.setItem("savedSequences", JSON.stringify(updated));
+  };
+
+  const loadSequence = (index) => {
+    const seq = savedSequences[index];
+    if (!seq) return;
+    setCurrentSequence([...seq.sequence]);
+    setHighlight({ area: null, lineIdx: -1, noteIdx: -1 });
+  };
+
+  const deleteSequence = (index) => {
+    const updated = savedSequences.filter((_, i) => i !== index);
+    setSavedSequences(updated);
+    localStorage.setItem("savedSequences", JSON.stringify(updated));
+  };
+
+  const exportSequences = () => {
+    const blob = new Blob([JSON.stringify(savedSequences, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "saved_sequences.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const printSequence = () => {
+    if (!currentSequence || currentSequence.length === 0) {
+      alert('No sequence to print.');
+      return;
+    }
+    // Create a temporary container in the main DOM and render NotationViews
+    const printContainer = document.createElement('div');
+    printContainer.id = 'print-sequence-temp';
+    printContainer.style.position = 'fixed';
+    printContainer.style.left = '0';
+    printContainer.style.top = '0';
+    printContainer.style.width = '100%';
+    printContainer.style.zIndex = '9999';
+    printContainer.style.backgroundColor = 'white';
+    printContainer.style.padding = '20px';
+    printContainer.style.maxHeight = '100vh';
+    printContainer.style.overflowY = 'auto';
+    document.body.appendChild(printContainer);
+
+    // Render each NotationView in the container
+    const root = ReactDOM.createRoot(printContainer);
+    const components = currentSequence.map((line, idx) => (
+      <div key={idx} style={{ marginBottom: '30px', pageBreakInside: 'avoid' }}>
+        <NotationView notes={line.notes} highlightIndex={-1} />
+      </div>
+    ));
+    root.render(<>{components}</>);
+
+    // Wait for render, add print styles, trigger print, then cleanup
+    setTimeout(() => {
+      // Add styles to hide everything except print container during print
+      const styleEl = document.createElement('style');
+      styleEl.id = 'print-sequence-style';
+      styleEl.textContent = `
+        @media print {
+          body > * { display: none !important; }
+          #print-sequence-temp { display: block !important; position: static !important; }
+        }
+      `;
+      document.head.appendChild(styleEl);
+
+      // Trigger print
+      window.print();
+
+      // Cleanup after print dialog closes (user confirms or cancels)
+      setTimeout(() => {
+        root.unmount();
+        printContainer.remove();
+        styleEl.remove();
+      }, 500);
+    }, 600);
+  };
+
+  const importSequences = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const imported = JSON.parse(e.target.result);
+        if (!Array.isArray(imported)) throw new Error("Invalid JSON");
+        setSavedSequences(imported);
+        localStorage.setItem("savedSequences", JSON.stringify(imported));
+        alert(`Imported ${imported.length} sequences`);
+      } catch (err) {
+        alert("Failed to import sequences: " + err.message);
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = null;
+  };
+
   // ...existing code...
 
   // Adjust octave for a specific saved line (globalIndex into `lines`)
@@ -142,6 +255,33 @@ function App() {
     // Also update any occurrences in currentSequence that referenced the old line object
     const updatedSequence = currentSequence.map((item) => (item === oldLine ? updatedLine : item));
     setCurrentSequence(updatedSequence);
+  };
+
+  // Adjust octave for a specific sequence line (temporary, doesn't save)
+  const adjustSequenceOctave = (seqIdx, delta) => {
+    if (seqIdx < 0 || seqIdx >= currentSequence.length) return;
+
+    const oldLine = currentSequence[seqIdx];
+
+    // Build new notes with adjusted octave
+    const newNotes = oldLine.notes.map((n) => {
+      const accidentalForParser = n.accidental === 'b' ? 'B' : (n.accidental === '#' ? '#' : '');
+      const noteStr = `${n.letter}${accidentalForParser}${n.octave + delta}`;
+      try {
+        return parseNote(noteStr);
+      } catch (e) {
+        // fallback: keep original note if parse fails
+        return { ...n };
+      }
+    });
+
+    // Rebuild line metadata
+    const newLine = buildJazzLine(newNotes);
+
+    // Update currentSequence with the new line object
+    const newSequence = [...currentSequence];
+    newSequence[seqIdx] = newLine;
+    setCurrentSequence(newSequence);
   };
 
   // Helpers for editing a saved line
@@ -207,7 +347,7 @@ function App() {
 
   return (
     <div style={{ padding: 20, fontFamily: "Arial, sans-serif" }}>
-      <h1>Jazz Line Sequence Explorer</h1>
+      <h1>🎷Jazz Line Sequence Explorer</h1>
 
       {/* Line Input and Controls */}
       <Collapsible title="📚Library & Import" defaultOpen={false} right={<span style={{ fontSize: 12, color: "#666" }}>{lines.length} lines</span>}>
@@ -226,7 +366,7 @@ function App() {
       </Collapsible>
 
       {/* Sequence Explorer */}
-      <Collapsible title="Sequence Explorer" defaultOpen={true} right={<span style={{ fontSize: 12, color: "#666" }}>{currentSequence.length} lines</span>}>
+      <Collapsible title="🎸Sequence Explorer" defaultOpen={true} right={<span style={{ fontSize: 12, color: "#666" }}>{currentSequence.length} lines</span>}>
 
         <div style={{ marginTop: 10 }}>
           <div style={{ background: '#f8f9fa', padding: 10, borderRadius: 6, border: '1px solid #eee' }}>
@@ -240,6 +380,8 @@ function App() {
             <button onClick={() => playSequence(currentSequence, "8n", (lineIdx, noteIdx) => setHighlight({ area: 'sequence', lineIdx, noteIdx }))}>
               Play Full Sequence
             </button>
+            <button style={{ marginLeft: 12 }} onClick={saveSequence}>Save Sequence</button>
+            <button style={{ marginLeft: 12 }} onClick={printSequence}>Print Sequence</button>
             <button style={{ marginLeft: 12 }} onClick={clearSequence}>Clear Sequence</button>
           </div>
         )}
@@ -250,9 +392,13 @@ function App() {
             <div key={idx} style={{ border: "1px solid #f0f0f0", padding: 10, marginBottom: 10, background: '#fff' }}>
               <p style={{ margin: 0, marginBottom: 6 }}>Line {lines.indexOf(line) + 1}: {line.start.degree} → {line.end.degree}</p>
               <NotationView notes={line.notes} highlightIndex={highlight.area === 'sequence' && highlight.lineIdx === idx ? highlight.noteIdx : -1} />
-              <button style={{ marginTop: 6 }} onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'sequence', lineIdx: idx, noteIdx }))}>
-                Play Line
-              </button>
+              <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
+                <button onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'sequence', lineIdx: idx, noteIdx }))}>
+                  Play Line
+                </button>
+                <button onClick={() => adjustSequenceOctave(idx, -1)}>Octave -</button>
+                <button onClick={() => adjustSequenceOctave(idx, +1)}>Octave +</button>
+              </div>
             </div>
           ))}
         </div>
@@ -279,7 +425,7 @@ function App() {
                 <h4 style={{ marginTop: 6 }}>Available Lines <span style={{ marginLeft: 8, fontSize: 12, color: '#666' }}>({total})</span></h4>
                 <div style={{ maxHeight: 420, overflowY: 'auto', paddingRight: 8 }}>
                   {orderedKeys.map((key) => (
-                    <Collapsible key={key} title={`${key} (${groups[key].length})`} defaultOpen={false}>
+                    <Collapsible key={`${key}-${currentSequence.length}`} title={`${key} (${groups[key].length})`} defaultOpen={false}>
                       {groups[key].length === 0 ? (
                         <div style={{ color: '#666', padding: 8 }}>No lines</div>
                       ) : (
@@ -417,7 +563,7 @@ function App() {
               <h4 style={{ marginTop: 6 }}>Available Lines <span style={{ marginLeft: 8, fontSize: 12, color: '#666' }}>(total {Object.values(buckets).reduce((s, a) => s + a.length, 0)})</span></h4>
               <div style={{ maxHeight: 420, overflowY: 'auto', paddingRight: 8 }}>
                 {groups.map((g) => (
-                  <Collapsible key={g.key} title={`${g.key} (${g.items.length})`} defaultOpen={false}>
+                  <Collapsible key={`${g.key}-${currentSequence.length}`} title={`${g.key} (${g.items.length})`} defaultOpen={false}>
                     {g.items.length === 0 ? (
                       <div style={{ color: '#666', padding: 8 }}>No lines</div>
                     ) : (
@@ -470,7 +616,23 @@ function App() {
 
       </Collapsible>
 
-      {/* sequence is shown inside the Sequence Explorer collapsible above */}
+      {/* Saved Sequences */}
+      <Collapsible title="💾 Saved Sequences" defaultOpen={false} right={<span style={{ fontSize: 12, color: "#666" }}>{savedSequences.length}</span>}>
+        {savedSequences.length === 0 && <div style={{ color: '#666' }}>No saved sequences</div>}
+        <div style={{ marginTop: 8, display: "flex", gap: 8, alignItems: "center" }}>
+          <button onClick={exportSequences}>Export Sequences</button>
+          <input type="file" accept=".json" onChange={importSequences} />
+        </div>
+        {savedSequences.map((seq, idx) => (
+          <div key={idx} style={{ border: "1px solid #eee", padding: 10, marginBottom: 8, borderRadius: 4 }}>
+            <strong>{seq.name}</strong> ({seq.sequence.length} lines)
+            <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
+              <button onClick={() => loadSequence(idx)}>Load</button>
+              <button onClick={() => deleteSequence(idx)} style={{ marginLeft: 'auto' }}>Delete</button>
+            </div>
+          </div>
+        ))}
+      </Collapsible>
 
       <Collapsible title="📈All Lines" defaultOpen={false} right={<span style={{ fontSize: 12, color: "#666" }}>{lines.length}</span>}>
         {lines.length === 0 && <div style={{ color: '#666' }}>No saved lines</div>}
@@ -530,11 +692,39 @@ function App() {
                 );
               })}
             </Collapsible>
-          ));
+          ));3
         })()}
       </Collapsible>
-    </div>
-  );
+    {/* Footer */}
+    <footer style={footerStyle}>
+      © {new Date().getFullYear()}{" "}
+      <a
+        href="https://kentays.github.io"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Kenta Shimakawa
+      </a>{" "}
+      ·{" "}
+      <a
+        href="https://kentays.bandcamp.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Bandcamp
+      </a>
+    </footer>
+  </div>
+);
 }
+
+const footerStyle = {
+  marginTop: "40px",
+  padding: "12px 0",
+  textAlign: "center",
+  fontSize: "12px",
+  color: "#777",
+  opacity: 0.85,
+};
 
 export default App;
