@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import LineInput from "./components/LineInput";
 import NotationView from "./components/NotationView";
@@ -20,6 +20,35 @@ function App() {
     const saved = localStorage.getItem("savedSequences");
     return saved ? JSON.parse(saved) : [];
   });
+
+  // Load default data on first visit
+  useEffect(() => {
+    const hasLoaded = localStorage.getItem("defaultDataLoaded");
+    if (!hasLoaded && lines.length === 0 && savedSequences.length === 0) {
+      Promise.all([
+        fetch("/jazz-lines/jazz_lines.json").then((res) => {
+          if (!res.ok) throw new Error(`Failed to load jazz_lines.json: ${res.status}`);
+          return res.json();
+        }),
+        fetch("/jazz-lines/saved_sequences.json").then((res) => {
+          if (!res.ok) throw new Error(`Failed to load saved_sequences.json: ${res.status}`);
+          return res.json();
+        })
+      ])
+        .then(([linesData, sequencesData]) => {
+          if (Array.isArray(linesData)) {
+            setLines(linesData);
+            localStorage.setItem("jazzLines", JSON.stringify(linesData));
+          }
+          if (Array.isArray(sequencesData)) {
+            setSavedSequences(sequencesData);
+            localStorage.setItem("savedSequences", JSON.stringify(sequencesData));
+          }
+          localStorage.setItem("defaultDataLoaded", "true");
+        })
+        .catch((err) => console.warn("Failed to load default files:", err));
+    }
+  }, []);
   const [editingIndex, setEditingIndex] = useState(null);
   const [editText, setEditText] = useState("");
   const [editTags, setEditTags] = useState("");
@@ -223,6 +252,39 @@ function App() {
     event.target.value = null;
   };
 
+  const loadDefaults = () => {
+    const ok = window.confirm("Load default library and sequences? This will replace your current data.");
+    if (!ok) return;
+    
+    Promise.all([
+      fetch("/jazz-lines/jazz_lines.json").then((res) => {
+        if (!res.ok) throw new Error(`Failed to load jazz_lines.json: ${res.status}`);
+        return res.json();
+      }),
+      fetch("/jazz-lines/saved_sequences.json").then((res) => {
+        if (!res.ok) throw new Error(`Failed to load saved_sequences.json: ${res.status}`);
+        return res.json();
+      })
+    ])
+      .then(([linesData, sequencesData]) => {
+        if (Array.isArray(linesData)) {
+          setLines(linesData);
+          localStorage.setItem("jazzLines", JSON.stringify(linesData));
+        }
+        if (Array.isArray(sequencesData)) {
+          setSavedSequences(sequencesData);
+          localStorage.setItem("savedSequences", JSON.stringify(sequencesData));
+        }
+        setCurrentSequence([]);
+        setHighlight({ area: null, lineIdx: -1, noteIdx: -1 });
+        alert("Default library and sequences loaded!");
+      })
+      .catch((err) => {
+        console.error("Failed to load defaults:", err);
+        alert("Failed to load default files: " + err.message);
+      });
+  };
+
   // ...existing code...
 
   // Adjust octave for a specific saved line (globalIndex into `lines`)
@@ -352,9 +414,10 @@ function App() {
       {/* Line Input and Controls */}
       <Collapsible title="📚Library & Import" defaultOpen={false} right={<span style={{ fontSize: 12, color: "#666" }}>{lines.length} lines</span>}>
         <LineInput onLineCreated={addLine} />
-        <div style={{ marginTop: 8, display: "flex", gap: 8, alignItems: "center" }}>
+        <div style={{ marginTop: 8, display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
           <button onClick={clearLines}>Clear All Lines</button>
           <button onClick={exportJSON}>Export JSON</button>
+          <button onClick={loadDefaults} style={{ backgroundColor: "#4CAF50", color: "white" }}>Load Defaults</button>
           <input type="file" accept=".json" onChange={importJSON} />
         </div>
         <div style={{ marginTop: 10 }}>
@@ -619,8 +682,9 @@ function App() {
       {/* Saved Sequences */}
       <Collapsible title="💾 Saved Sequences" defaultOpen={false} right={<span style={{ fontSize: 12, color: "#666" }}>{savedSequences.length}</span>}>
         {savedSequences.length === 0 && <div style={{ color: '#666' }}>No saved sequences</div>}
-        <div style={{ marginTop: 8, display: "flex", gap: 8, alignItems: "center" }}>
+        <div style={{ marginTop: 8, display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
           <button onClick={exportSequences}>Export Sequences</button>
+          <button onClick={loadDefaults} style={{ backgroundColor: "#4CAF50", color: "white" }}>Load Defaults</button>
           <input type="file" accept=".json" onChange={importSequences} />
         </div>
         {savedSequences.map((seq, idx) => (

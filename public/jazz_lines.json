@@ -1,0 +1,5126 @@
+[
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 3,
+        "midi": 53
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 3,
+        "midi": 56
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 4,
+        "midi": 64
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      }
+    ],
+    "intervals": [
+      3,
+      3,
+      5,
+      1,
+      3,
+      3,
+      5
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 3,
+      "midi": 53,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 5,
+      "midi": 76,
+      "degree": "3"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 3,
+        "midi": 56
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      }
+    ],
+    "intervals": [
+      3,
+      3,
+      5,
+      1,
+      3,
+      3,
+      5
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 3,
+      "midi": 56,
+      "degree": "b6"
+    },
+    "end": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 5,
+      "midi": 79,
+      "degree": "5"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 82
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      }
+    ],
+    "intervals": [
+      3,
+      4,
+      4,
+      3,
+      -3,
+      -4,
+      -4
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 68,
+      "degree": "b6"
+    },
+    "end": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      }
+    ],
+    "intervals": [
+      3,
+      5,
+      -2,
+      -3,
+      -3,
+      -3,
+      -3
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 68,
+      "degree": "b6"
+    },
+    "end": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 4,
+      "midi": 62,
+      "degree": "2"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      }
+    ],
+    "intervals": [
+      4,
+      4,
+      -1,
+      -1,
+      -3,
+      -3,
+      -3,
+      -3
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 68,
+      "degree": "b6"
+    },
+    "end": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 4,
+      "midi": 62,
+      "degree": "2"
+    },
+    "length": 9
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "D",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 73
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 4,
+        "midi": 64
+      },
+      {
+        "letter": "D",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 61
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 3,
+        "midi": 56
+      }
+    ],
+    "intervals": [
+      5,
+      -3,
+      -5,
+      2,
+      -3,
+      -3,
+      -5
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 68,
+      "degree": "b6"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 3,
+      "midi": 56,
+      "degree": "b6"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      }
+    ],
+    "intervals": [
+      -1,
+      -4,
+      -4,
+      6,
+      5,
+      -3,
+      -2
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 68,
+      "degree": "b6"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      }
+    ],
+    "intervals": [
+      -4,
+      -3,
+      5,
+      -4,
+      3,
+      5,
+      -2
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "",
+      "octave": 4,
+      "midi": 69,
+      "degree": "6"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "",
+      "octave": 4,
+      "midi": 69,
+      "degree": "6"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      }
+    ],
+    "intervals": [
+      3,
+      -1,
+      -2,
+      -2,
+      -1,
+      -1,
+      -2
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "",
+      "octave": 4,
+      "midi": 69,
+      "degree": "6"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 63,
+      "degree": "b3"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 5,
+        "midi": 81
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      }
+    ],
+    "intervals": [
+      -2,
+      -3,
+      -2,
+      -2,
+      -3,
+      -3,
+      -3
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "",
+      "octave": 5,
+      "midi": 81,
+      "degree": "6"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 63,
+      "degree": "b3"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "D",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 73
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      }
+    ],
+    "intervals": [
+      -2,
+      -1,
+      -2,
+      -1,
+      -1,
+      -1,
+      2
+    ],
+    "start": {
+      "letter": "D",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 73,
+      "degree": "b2"
+    },
+    "end": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 4,
+      "midi": 67,
+      "degree": "5"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      }
+    ],
+    "intervals": [
+      5,
+      -4,
+      -4,
+      -1,
+      -1,
+      -1,
+      -2
+    ],
+    "start": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 5,
+      "midi": 74,
+      "degree": "2"
+    },
+    "end": {
+      "letter": "G",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 66,
+      "degree": "b5"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      }
+    ],
+    "intervals": [
+      1,
+      -4,
+      -3,
+      -1,
+      -2,
+      -3,
+      3
+    ],
+    "start": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 5,
+      "midi": 74,
+      "degree": "2"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 80
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      }
+    ],
+    "intervals": [
+      -2,
+      -1,
+      3,
+      3,
+      3,
+      -1,
+      -2
+    ],
+    "start": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 5,
+      "midi": 74,
+      "degree": "2"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 5,
+      "midi": 77,
+      "degree": "4"
+    },
+    "length": 8,
+    "tags": [
+      "ii-v minor"
+    ]
+  },
+  {
+    "notes": [
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "D",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 73
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      }
+    ],
+    "intervals": [
+      -1,
+      -4,
+      -4,
+      6,
+      -2,
+      -4,
+      -3
+    ],
+    "start": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 5,
+      "midi": 74,
+      "degree": "2"
+    },
+    "end": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 4,
+      "midi": 62,
+      "degree": "2"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      }
+    ],
+    "intervals": [
+      -2,
+      -1,
+      -3,
+      -1,
+      -1,
+      -1,
+      -3
+    ],
+    "start": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 5,
+      "midi": 74,
+      "degree": "2"
+    },
+    "end": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 4,
+      "midi": 62,
+      "degree": "2"
+    },
+    "length": 8,
+    "tags": [
+      "ii-v minor"
+    ]
+  },
+  {
+    "notes": [
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      }
+    ],
+    "intervals": [
+      3,
+      4,
+      3,
+      -9,
+      3,
+      3,
+      3
+    ],
+    "start": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 4,
+      "midi": 62,
+      "degree": "2"
+    },
+    "end": {
+      "letter": "C",
+      "accidental": "",
+      "octave": 5,
+      "midi": 72,
+      "degree": "1"
+    },
+    "length": 8,
+    "tags": [
+      "ii-v major"
+    ]
+  },
+  {
+    "notes": [
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      }
+    ],
+    "intervals": [
+      3,
+      3,
+      4,
+      2,
+      1,
+      -4,
+      -4
+    ],
+    "start": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 4,
+      "midi": 62,
+      "degree": "2"
+    },
+    "end": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 4,
+      "midi": 67,
+      "degree": "5"
+    },
+    "length": 8,
+    "tags": [
+      "ii-v minor"
+    ]
+  },
+  {
+    "notes": [
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 4,
+        "midi": 60
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 3,
+        "midi": 58
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      }
+    ],
+    "intervals": [
+      -2,
+      1,
+      4,
+      2,
+      5,
+      1,
+      4
+    ],
+    "start": {
+      "letter": "C",
+      "accidental": "",
+      "octave": 4,
+      "midi": 60,
+      "degree": "1"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 75,
+      "degree": "b3"
+    },
+    "length": 8,
+    "tags": [
+      "V"
+    ]
+  },
+  {
+    "notes": [
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 80
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      }
+    ],
+    "intervals": [
+      -2,
+      1,
+      9,
+      -4,
+      -5,
+      -3,
+      11
+    ],
+    "start": {
+      "letter": "C",
+      "accidental": "",
+      "octave": 5,
+      "midi": 72,
+      "degree": "1"
+    },
+    "end": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 5,
+      "midi": 79,
+      "degree": "5"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 4,
+        "midi": 60
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 3,
+        "midi": 58
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      }
+    ],
+    "intervals": [
+      -2,
+      1,
+      4,
+      2,
+      5,
+      -2,
+      3
+    ],
+    "start": {
+      "letter": "C",
+      "accidental": "",
+      "octave": 4,
+      "midi": 60,
+      "degree": "1"
+    },
+    "end": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      }
+    ],
+    "intervals": [
+      -2,
+      -4,
+      -3,
+      5,
+      1,
+      -4,
+      -3
+    ],
+    "start": {
+      "letter": "C",
+      "accidental": "",
+      "octave": 5,
+      "midi": 72,
+      "degree": "1"
+    },
+    "end": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 4,
+      "midi": 62,
+      "degree": "2"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 3,
+        "midi": 56
+      }
+    ],
+    "intervals": [
+      -3,
+      -4,
+      -3,
+      5,
+      -4,
+      -4,
+      -3
+    ],
+    "start": {
+      "letter": "C",
+      "accidental": "",
+      "octave": 5,
+      "midi": 72,
+      "degree": "1"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 3,
+      "midi": 56,
+      "degree": "b6"
+    },
+    "length": 8,
+    "tags": [
+      "ii-V"
+    ]
+  },
+  {
+    "notes": [
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "C",
+        "accidental": "#",
+        "octave": 5,
+        "midi": 73
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      }
+    ],
+    "intervals": [
+      -2,
+      -2,
+      -1,
+      -2,
+      -1,
+      -2
+    ],
+    "start": {
+      "letter": "E",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 75,
+      "degree": "b3"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "length": 7
+  },
+  {
+    "notes": [
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      }
+    ],
+    "intervals": [
+      -4,
+      -3,
+      -3,
+      2,
+      4,
+      4,
+      4
+    ],
+    "start": {
+      "letter": "E",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 75,
+      "degree": "b3"
+    },
+    "end": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 5,
+      "midi": 79,
+      "degree": "5"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 5,
+        "midi": 81
+      }
+    ],
+    "intervals": [
+      -2,
+      -5,
+      3,
+      -1,
+      3,
+      3,
+      4
+    ],
+    "start": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 5,
+      "midi": 76,
+      "degree": "3"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "",
+      "octave": 5,
+      "midi": 81,
+      "degree": "6"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 4,
+        "midi": 64
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "G",
+        "accidental": "#",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "G",
+        "accidental": "#",
+        "octave": 5,
+        "midi": 80
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 5,
+        "midi": 83
+      }
+    ],
+    "intervals": [
+      1,
+      3,
+      3,
+      5,
+      1,
+      3,
+      3
+    ],
+    "start": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 4,
+      "midi": 64,
+      "degree": "3"
+    },
+    "end": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 5,
+      "midi": 83,
+      "degree": "7"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 3,
+        "midi": 52
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 3,
+        "midi": 53
+      },
+      {
+        "letter": "G",
+        "accidental": "#",
+        "octave": 3,
+        "midi": 56
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 4,
+        "midi": 64
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "G",
+        "accidental": "#",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      }
+    ],
+    "intervals": [
+      1,
+      3,
+      3,
+      5,
+      1,
+      3,
+      3,
+      5
+    ],
+    "start": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 3,
+      "midi": 52,
+      "degree": "3"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 5,
+      "midi": 76,
+      "degree": "3"
+    },
+    "length": 9
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      }
+    ],
+    "intervals": [
+      5,
+      -2,
+      3,
+      -1,
+      -3,
+      -4,
+      -4
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 3,
+      "midi": 59,
+      "degree": "7"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      }
+    ],
+    "intervals": [
+      4,
+      3,
+      4,
+      -1,
+      -4,
+      -3,
+      -3
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      }
+    ],
+    "intervals": [
+      2,
+      1,
+      3,
+      -1,
+      -2,
+      -1,
+      -2
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      }
+    ],
+    "intervals": [
+      4,
+      3,
+      4,
+      3,
+      -4,
+      -4,
+      -3
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 68,
+      "degree": "b6"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "D",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 73
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      }
+    ],
+    "intervals": [
+      -1,
+      -5,
+      -3,
+      5,
+      -2,
+      -3,
+      -3
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 5,
+      "midi": 77,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 4,
+        "midi": 64
+      }
+    ],
+    "intervals": [
+      -2,
+      -4,
+      -3,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 5,
+      "midi": 77,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 4,
+      "midi": 64,
+      "degree": "3"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      }
+    ],
+    "intervals": [
+      -2,
+      -1,
+      -2,
+      -1,
+      -3,
+      -1,
+      -2
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 5,
+      "midi": 77,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      }
+    ],
+    "intervals": [
+      -2,
+      -1,
+      -2,
+      -1,
+      -3,
+      -1,
+      -1
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 5,
+      "midi": 77,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "G",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 66,
+      "degree": "b5"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 4,
+        "midi": 64
+      }
+    ],
+    "intervals": [
+      -1,
+      -5,
+      -3,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 5,
+      "midi": 77,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 4,
+      "midi": 64,
+      "degree": "3"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      }
+    ],
+    "intervals": [
+      -1,
+      -4,
+      -4,
+      6,
+      -2,
+      -4,
+      -3
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 5,
+      "midi": 77,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "D",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 73
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      }
+    ],
+    "intervals": [
+      -2,
+      -4,
+      4,
+      -2,
+      -2,
+      -1,
+      -2
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 5,
+      "midi": 77,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 68,
+      "degree": "b6"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 80
+      }
+    ],
+    "intervals": [
+      -2,
+      -1,
+      -2,
+      -1,
+      3,
+      3,
+      3
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 5,
+      "midi": 77,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 80,
+      "degree": "b6"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      }
+    ],
+    "intervals": [
+      -4,
+      -4,
+      -3,
+      -1,
+      -1,
+      -1,
+      2
+    ],
+    "start": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 5,
+      "midi": 79,
+      "degree": "5"
+    },
+    "end": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 4,
+      "midi": 67,
+      "degree": "5"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 78
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      }
+    ],
+    "intervals": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -4,
+      -3,
+      -3
+    ],
+    "start": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 5,
+      "midi": 79,
+      "degree": "5"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "D",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 73
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      }
+    ],
+    "intervals": [
+      -4,
+      -4,
+      4,
+      -2,
+      -2,
+      -1,
+      -2
+    ],
+    "start": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 5,
+      "midi": 79,
+      "degree": "5"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 68,
+      "degree": "b6"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 4,
+        "midi": 64
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      }
+    ],
+    "intervals": [
+      -3,
+      -5,
+      -3,
+      -4,
+      1,
+      3,
+      3,
+      5
+    ],
+    "start": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 5,
+      "midi": 79,
+      "degree": "5"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 5,
+      "midi": 76,
+      "degree": "3"
+    },
+    "length": 9
+  },
+  {
+    "notes": [
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 78
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      }
+    ],
+    "intervals": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -4,
+      -1,
+      -2
+    ],
+    "start": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 5,
+      "midi": 79,
+      "degree": "5"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 68,
+      "degree": "b6"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 4,
+        "midi": 64
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      }
+    ],
+    "intervals": [
+      -1,
+      -1,
+      2,
+      -3,
+      1,
+      4,
+      3,
+      4
+    ],
+    "start": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 4,
+      "midi": 67,
+      "degree": "5"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 5,
+      "midi": 76,
+      "degree": "3"
+    },
+    "length": 9
+  },
+  {
+    "notes": [
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      }
+    ],
+    "intervals": [
+      -1,
+      -1,
+      2,
+      -4,
+      2,
+      3,
+      3,
+      4
+    ],
+    "start": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 4,
+      "midi": 67,
+      "degree": "5"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 75,
+      "degree": "b3"
+    },
+    "length": 9
+  },
+  {
+    "notes": [
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 80
+      }
+    ],
+    "intervals": [
+      1,
+      2,
+      2,
+      2,
+      1,
+      2,
+      3
+    ],
+    "start": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 4,
+      "midi": 67,
+      "degree": "5"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 80,
+      "degree": "b6"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 3,
+        "midi": 55
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      }
+    ],
+    "intervals": [
+      4,
+      4,
+      4,
+      -2,
+      3,
+      3,
+      4
+    ],
+    "start": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 3,
+      "midi": 55,
+      "degree": "5"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 75,
+      "degree": "b3"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 3,
+        "midi": 55
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 3,
+        "midi": 56
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      }
+    ],
+    "intervals": [
+      1,
+      3,
+      3,
+      5,
+      1,
+      3,
+      3
+    ],
+    "start": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 3,
+      "midi": 55,
+      "degree": "5"
+    },
+    "end": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 5,
+      "midi": 74,
+      "degree": "2"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 80
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 5,
+        "midi": 81
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 80
+      }
+    ],
+    "intervals": [
+      4,
+      5,
+      5,
+      1,
+      -1
+    ],
+    "start": {
+      "letter": "G",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 66,
+      "degree": "b5"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 80,
+      "degree": "b6"
+    },
+    "length": 6
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 82
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 82
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      }
+    ],
+    "intervals": [
+      -3,
+      -4,
+      -4,
+      6,
+      5,
+      -3,
+      -2
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 82,
+      "degree": "b7"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 5,
+      "midi": 77,
+      "degree": "4"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 82
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 5,
+        "midi": 81
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 80
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      }
+    ],
+    "intervals": [
+      -1,
+      -1,
+      -4,
+      -5,
+      -3,
+      -1,
+      -2
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 82,
+      "degree": "b7"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 82
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      }
+    ],
+    "intervals": [
+      -3,
+      -4,
+      -4,
+      6,
+      -2,
+      -4,
+      -3
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 82,
+      "degree": "b7"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 68,
+      "degree": "b6"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      }
+    ],
+    "intervals": [
+      -1,
+      -1,
+      -2,
+      1,
+      -4,
+      -4,
+      3
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 70,
+      "degree": "b7"
+    },
+    "end": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 4,
+      "midi": 62,
+      "degree": "2"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 82
+      }
+    ],
+    "intervals": [
+      4,
+      2,
+      5,
+      1,
+      4,
+      2,
+      5
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 3,
+      "midi": 59,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "B",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 82,
+      "degree": "b7"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      }
+    ],
+    "intervals": [
+      3,
+      3,
+      4,
+      2,
+      -2,
+      -4,
+      -3
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 3,
+      "midi": 59,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 4,
+      "midi": 62,
+      "degree": "2"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      }
+    ],
+    "intervals": [
+      3,
+      5,
+      -1,
+      -1,
+      3,
+      3,
+      5
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 3,
+      "midi": 59,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 5,
+      "midi": 76,
+      "degree": "3"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 82
+      }
+    ],
+    "intervals": [
+      4,
+      2,
+      5,
+      1,
+      4,
+      2,
+      5
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 3,
+      "midi": 59,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "B",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 82,
+      "degree": "b7"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      }
+    ],
+    "intervals": [
+      3,
+      5,
+      -1,
+      -1,
+      3,
+      3,
+      5
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 3,
+      "midi": 59,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 5,
+      "midi": 76,
+      "degree": "3"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 3,
+        "midi": 59
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 82
+      }
+    ],
+    "intervals": [
+      4,
+      2,
+      5,
+      1,
+      4,
+      2,
+      5
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 3,
+      "midi": 59,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "B",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 82,
+      "degree": "b7"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 82
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 5,
+        "midi": 83
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 82
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      }
+    ],
+    "intervals": [
+      4,
+      2,
+      5,
+      1,
+      -1,
+      -3,
+      -4
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "b",
+      "octave": 5,
+      "midi": 75,
+      "degree": "b3"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 82
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 80
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      }
+    ],
+    "intervals": [
+      4,
+      2,
+      5,
+      -2,
+      -1,
+      -4,
+      -4
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "D",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 73
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 63
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      }
+    ],
+    "intervals": [
+      2,
+      -2,
+      -1,
+      -3,
+      -4,
+      2,
+      5
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "B",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 70,
+      "degree": "b7"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      }
+    ],
+    "intervals": [
+      3,
+      5,
+      -5,
+      -3,
+      -3,
+      -3,
+      -3
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 4,
+      "midi": 62,
+      "degree": "2"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      }
+    ],
+    "intervals": [
+      3,
+      3,
+      -3,
+      1,
+      -4,
+      -4,
+      -2
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "length": 8
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 66
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      }
+    ],
+    "intervals": [
+      -3,
+      -1,
+      -1,
+      -1,
+      2,
+      4,
+      3
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 5,
+      "midi": 74,
+      "degree": "2"
+    },
+    "length": 8
+  }
+]
