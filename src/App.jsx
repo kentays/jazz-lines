@@ -9,16 +9,39 @@ import { parseNote } from "./theory/noteParser";
 import { buildJazzLine } from "./theory/lineBuilder";
 import { playLine, playSequence } from "./utils/playback";
 
+// Ensure all lines have tripletStartIndex property
+function normalizeLinesWithTriplet(lines) {
+  return lines.map((line) => {
+    if (typeof line.tripletStartIndex === "undefined") {
+      // Default to 6 (last 3 notes) for 9-note lines, -1 for others
+      return {
+        ...line,
+        tripletStartIndex: line.notes?.length === 9 ? 6 : -1
+      };
+    }
+    return line;
+  });
+}
+
 function App() {
   const [lines, setLines] = useState(() => {
     const saved = localStorage.getItem("jazzLines");
-    return saved ? JSON.parse(saved) : [];
+    return saved ? normalizeLinesWithTriplet(JSON.parse(saved)) : [];
   });
 
   const [currentSequence, setCurrentSequence] = useState([]);
   const [savedSequences, setSavedSequences] = useState(() => {
     const saved = localStorage.getItem("savedSequences");
-    return saved ? JSON.parse(saved) : [];
+    const parsed = saved ? JSON.parse(saved) : [];
+    // Normalize sequences too
+    return parsed.map((seq) =>
+      Array.isArray(seq) ? seq.map((line) => ({
+        ...line,
+        tripletStartIndex: typeof line.tripletStartIndex === "undefined" 
+          ? (line.notes?.length === 9 ? 6 : -1)
+          : line.tripletStartIndex
+      })) : seq
+    );
   });
 
   // Load default data on first visit
@@ -37,12 +60,16 @@ function App() {
       ])
         .then(([linesData, sequencesData]) => {
           if (Array.isArray(linesData)) {
-            setLines(linesData);
-            localStorage.setItem("jazzLines", JSON.stringify(linesData));
+            const normalizedLines = normalizeLinesWithTriplet(linesData);
+            setLines(normalizedLines);
+            localStorage.setItem("jazzLines", JSON.stringify(normalizedLines));
           }
           if (Array.isArray(sequencesData)) {
-            setSavedSequences(sequencesData);
-            localStorage.setItem("savedSequences", JSON.stringify(sequencesData));
+            const normalizedSequences = sequencesData.map((seq) =>
+              Array.isArray(seq) ? normalizeLinesWithTriplet(seq) : seq
+            );
+            setSavedSequences(normalizedSequences);
+            localStorage.setItem("savedSequences", JSON.stringify(normalizedSequences));
           }
           localStorage.setItem("defaultDataLoaded", "true");
         })
@@ -144,6 +171,17 @@ function App() {
     setHighlight({ area: null, lineIdx: -1, noteIdx: -1 });
   };
 
+  // Remove the last-added line from the current sequence (undo last selection)
+  const removeLastFromSequence = () => {
+    if (currentSequence.length === 0) {
+      alert("No lines in the current sequence to remove.");
+      return;
+    }
+    const newSeq = currentSequence.slice(0, -1);
+    setCurrentSequence(newSeq);
+    setHighlight({ area: null, lineIdx: -1, noteIdx: -1 });
+  };
+
   const saveSequence = () => {
     if (currentSequence.length === 0) {
       alert("No sequence to save.");
@@ -151,7 +189,7 @@ function App() {
     }
     const name = prompt("Enter a name for this sequence:");
     if (!name || name.trim() === "") return;
-    const newSeq = { name: name.trim(), sequence: [...currentSequence] };
+    const newSeq = { name: name.trim(), sequence: normalizeLinesWithTriplet([...currentSequence]) };
     const updated = [...savedSequences, newSeq];
     setSavedSequences(updated);
     localStorage.setItem("savedSequences", JSON.stringify(updated));
@@ -160,12 +198,23 @@ function App() {
   const loadSequence = (index) => {
     const seq = savedSequences[index];
     if (!seq) return;
-    setCurrentSequence([...seq.sequence]);
+    setCurrentSequence(normalizeLinesWithTriplet(Array.isArray(seq.sequence) ? seq.sequence : []));
     setHighlight({ area: null, lineIdx: -1, noteIdx: -1 });
   };
 
   const deleteSequence = (index) => {
     const updated = savedSequences.filter((_, i) => i !== index);
+    setSavedSequences(updated);
+    localStorage.setItem("savedSequences", JSON.stringify(updated));
+  };
+
+  const renameSequence = (index) => {
+    const seq = savedSequences[index];
+    if (!seq) return;
+    const newName = prompt("Enter a new name for this sequence:", seq.name || "");
+    if (!newName) return;
+    const updated = [...savedSequences];
+    updated[index] = { ...updated[index], name: newName.trim() };
     setSavedSequences(updated);
     localStorage.setItem("savedSequences", JSON.stringify(updated));
   };
@@ -203,7 +252,7 @@ function App() {
     const root = ReactDOM.createRoot(printContainer);
     const components = currentSequence.map((line, idx) => (
       <div key={idx} style={{ marginBottom: '30px', pageBreakInside: 'avoid' }}>
-        <NotationView notes={line.notes} highlightIndex={-1} />
+        <NotationView notes={line.notes} highlightIndex={-1} tripletStartIndex={line.tripletStartIndex ?? -1} />
       </div>
     ));
     root.render(<>{components}</>);
@@ -268,12 +317,16 @@ function App() {
     ])
       .then(([linesData, sequencesData]) => {
         if (Array.isArray(linesData)) {
-          setLines(linesData);
-          localStorage.setItem("jazzLines", JSON.stringify(linesData));
+          const normalizedLines = normalizeLinesWithTriplet(linesData);
+          setLines(normalizedLines);
+          localStorage.setItem("jazzLines", JSON.stringify(normalizedLines));
         }
         if (Array.isArray(sequencesData)) {
-          setSavedSequences(sequencesData);
-          localStorage.setItem("savedSequences", JSON.stringify(sequencesData));
+          const normalizedSequences = sequencesData.map((seq) =>
+            Array.isArray(seq) ? normalizeLinesWithTriplet(seq) : seq
+          );
+          setSavedSequences(normalizedSequences);
+          localStorage.setItem("savedSequences", JSON.stringify(normalizedSequences));
         }
         setCurrentSequence([]);
         setHighlight({ area: null, lineIdx: -1, noteIdx: -1 });
@@ -285,7 +338,67 @@ function App() {
       });
   };
 
-  // ...existing code...
+  // Load only default lines (library)
+  const loadDefaultLines = () => {
+    const ok = window.confirm("Load default library? This will replace your current lines.");
+    if (!ok) return;
+    fetch("/jazz-lines/jazz_lines.json")
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load jazz_lines.json: ${res.status}`);
+        return res.json();
+      })
+      .then((linesData) => {
+        if (Array.isArray(linesData)) {
+          const normalizedLines = normalizeLinesWithTriplet(linesData);
+          setLines(normalizedLines);
+          localStorage.setItem("jazzLines", JSON.stringify(normalizedLines));
+          setCurrentSequence([]);
+          setHighlight({ area: null, lineIdx: -1, noteIdx: -1 });
+          alert("Default library loaded!");
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to load default lines:", err);
+        alert("Failed to load default lines: " + err.message);
+      });
+  };
+
+  // Load only default saved sequences
+  const loadDefaultSequences = () => {
+    const ok = window.confirm("Load default sequences? This will replace your saved sequences.");
+    if (!ok) return;
+    fetch("/jazz-lines/saved_sequences.json")
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to load saved_sequences.json: ${res.status}`);
+        return res.json();
+      })
+      .then((sequencesData) => {
+        if (Array.isArray(sequencesData)) {
+          const normalizedSequences = sequencesData.map((seq) =>
+            Array.isArray(seq) ? normalizeLinesWithTriplet(seq) : seq
+          );
+          setSavedSequences(normalizedSequences);
+          localStorage.setItem("savedSequences", JSON.stringify(normalizedSequences));
+          alert("Default sequences loaded!");
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to load default sequences:", err);
+        alert("Failed to load default sequences: " + err.message);
+      });
+  };
+
+  const clearAllSequences = () => {
+    if (savedSequences.length === 0) {
+      alert("No saved sequences to clear.");
+      return;
+    }
+    const ok = window.confirm("Clear ALL saved sequences? This will remove them permanently.");
+    if (!ok) return;
+    setSavedSequences([]);
+    localStorage.removeItem("savedSequences");
+    alert("All saved sequences cleared.");
+  };
 
   // Adjust octave for a specific saved line (globalIndex into `lines`)
   const adjustLineOctave = (globalIndex, delta) => {
@@ -305,8 +418,8 @@ function App() {
       }
     });
 
-    // Rebuild line metadata
-    const updatedLine = buildJazzLine(newNotes);
+    // Rebuild line metadata, preserving triplet position
+    const updatedLine = buildJazzLine(newNotes, lines[globalIndex].tripletStartIndex);
 
     // Update lines array
     const updatedLines = [...lines];
@@ -337,12 +450,66 @@ function App() {
       }
     });
 
-    // Rebuild line metadata
-    const newLine = buildJazzLine(newNotes);
+    // Rebuild line metadata, preserving triplet position
+    const newLine = buildJazzLine(newNotes, currentSequence[seqIdx].tripletStartIndex);
 
     // Update currentSequence with the new line object
     const newSequence = [...currentSequence];
     newSequence[seqIdx] = newLine;
+    setCurrentSequence(newSequence);
+  };
+
+  // Adjust triplet position for a saved line (globalIndex)
+  const adjustLineTriplet = (globalIndex, delta) => {
+    if (globalIndex < 0 || globalIndex >= lines.length) return;
+
+    const line = lines[globalIndex];
+    if (!line.notes || line.notes.length < 3) return; // Need at least 3 notes for triplet
+
+    let newTripletIndex = line.tripletStartIndex ?? -1;
+    if (newTripletIndex === -1) {
+      newTripletIndex = Math.max(0, line.notes.length - 3); // Default to last 3
+    }
+
+    newTripletIndex += delta * 2; // Move by 2 notes (quarter note = 2 eighth notes)
+
+    // Validate bounds: triplet must have 3 consecutive notes
+    if (newTripletIndex < 0) newTripletIndex = 0;
+    if (newTripletIndex + 3 > line.notes.length) newTripletIndex = line.notes.length - 3;
+
+    const updatedLine = { ...line, tripletStartIndex: newTripletIndex };
+    const updatedLines = [...lines];
+    updatedLines[globalIndex] = updatedLine;
+    setLines(updatedLines);
+    localStorage.setItem("jazzLines", JSON.stringify(updatedLines));
+
+    // Also update in currentSequence if it references this line
+    const updatedSequence = currentSequence.map((item) => 
+      item === line ? updatedLine : item
+    );
+    setCurrentSequence(updatedSequence);
+  };
+
+  // Adjust triplet position for a sequence line (temporary, doesn't save)
+  const adjustSequenceTriplet = (seqIdx, delta) => {
+    if (seqIdx < 0 || seqIdx >= currentSequence.length) return;
+
+    const line = currentSequence[seqIdx];
+    if (!line.notes || line.notes.length < 3) return;
+
+    let newTripletIndex = line.tripletStartIndex ?? -1;
+    if (newTripletIndex === -1) {
+      newTripletIndex = Math.max(0, line.notes.length - 3);
+    }
+
+    newTripletIndex += delta * 2;
+
+    if (newTripletIndex < 0) newTripletIndex = 0;
+    if (newTripletIndex + 3 > line.notes.length) newTripletIndex = line.notes.length - 3;
+
+    const updatedLine = { ...line, tripletStartIndex: newTripletIndex };
+    const newSequence = [...currentSequence];
+    newSequence[seqIdx] = updatedLine;
     setCurrentSequence(newSequence);
   };
 
@@ -417,7 +584,7 @@ function App() {
         <div style={{ marginTop: 8, display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
           <button onClick={clearLines}>Clear All Lines</button>
           <button onClick={exportJSON}>Export JSON</button>
-          <button onClick={loadDefaults} style={{ backgroundColor: "#4CAF50", color: "white" }}>Load Defaults</button>
+          <button onClick={loadDefaultLines} style={{ backgroundColor: "#4CAF50", color: "white" }}>Load Default Lines</button>
           <input type="file" accept=".json" onChange={importJSON} />
         </div>
         <div style={{ marginTop: 10 }}>
@@ -437,15 +604,23 @@ function App() {
           </div>
         </div>
 
-        <h4 style={{ marginTop: 8 }}>Current Sequence</h4>
+        <h4 style={{ marginTop: 8}}>Current Sequence</h4>
         {currentSequence.length > 0 && (
-          <div style={{ marginTop: 6 }}>
+          <div style={{ marginTop: 0, marginBottom: 6}}>
             <button onClick={() => playSequence(currentSequence, "8n", (lineIdx, noteIdx) => setHighlight({ area: 'sequence', lineIdx, noteIdx }))}>
-              Play Full Sequence
+              ▶️ Play Full Sequence
             </button>
-            <button style={{ marginLeft: 12 }} onClick={saveSequence}>Save Sequence</button>
-            <button style={{ marginLeft: 12 }} onClick={printSequence}>Print Sequence</button>
-            <button style={{ marginLeft: 12 }} onClick={clearSequence}>Clear Sequence</button>
+            <button style={{ marginLeft: 12 }} onClick={saveSequence}>💾 Save Sequence</button>
+            <button style={{ marginLeft: 12 }} onClick={printSequence}>🖨️ Print Sequence</button>
+            <button style={{ marginLeft: 12 }} onClick={removeLastFromSequence}>↩️ Remove Last</button>
+            <button style={{ marginLeft: 12 }} onClick={clearSequence}>❎ Clear Sequence</button>
+          </div>
+        )}
+        {currentSequence.length > 0 && (
+          <div style={{ marginTop: 10, marginBottom: 10 }}>
+            <div style={{ background: '#f8f9fa', padding: 10, borderRadius: 6, border: '1px solid #eee' }}>
+              <strong>Tip:</strong> Octave and triplet position changes in the sequence explorer are temporary. To make permanent changes to a line, edit it in the "All Lines" section below.
+            </div>
           </div>
         )}
 
@@ -454,13 +629,19 @@ function App() {
           {currentSequence.map((line, idx) => (
             <div key={idx} style={{ border: "1px solid #f0f0f0", padding: 10, marginBottom: 10, background: '#fff' }}>
               <p style={{ margin: 0, marginBottom: 6 }}>Line {lines.indexOf(line) + 1}: {line.start.degree} → {line.end.degree}</p>
-              <NotationView notes={line.notes} highlightIndex={highlight.area === 'sequence' && highlight.lineIdx === idx ? highlight.noteIdx : -1} />
+              <NotationView notes={line.notes} highlightIndex={highlight.area === 'sequence' && highlight.lineIdx === idx ? highlight.noteIdx : -1} tripletStartIndex={line.tripletStartIndex ?? -1} />
               <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
-                <button onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'sequence', lineIdx: idx, noteIdx }))}>
+                <button onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'sequence', lineIdx: idx, noteIdx }), line.tripletStartIndex ?? -1)}>
                   Play Line
                 </button>
                 <button onClick={() => adjustSequenceOctave(idx, -1)}>Octave -</button>
                 <button onClick={() => adjustSequenceOctave(idx, +1)}>Octave +</button>
+                {line.notes && line.notes.length === 9 && (
+                  <>
+                    <button onClick={() => adjustSequenceTriplet(idx, -1)} title="Move triplet back">Triplet ←</button>
+                    <button onClick={() => adjustSequenceTriplet(idx, +1)} title="Move triplet forward">Triplet →</button>
+                  </>
+                )}
               </div>
             </div>
           ))}
@@ -512,15 +693,21 @@ function App() {
                                 </div>
                               ) : (
                                 <>
-                                  <NotationView notes={line.notes} highlightIndex={-1} />
+                                  <NotationView notes={line.notes} highlightIndex={-1} tripletStartIndex={line.tripletStartIndex ?? -1} />
                                   <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
-                                    <button onClick={() => selectLine(line)}>Select</button>
+                                    <button onClick={() => selectLine(line)} style={{ backgroundColor: "#4CAF50", color: "white" }}>Select</button>
                                     <button onClick={() => startEditLine(globalIndex)}>Edit</button>
-                                    <button onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }))}>
+                                    <button onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), line.tripletStartIndex ?? -1)}>
                                       Play Line
                                     </button>
                                     <button onClick={() => adjustLineOctave(globalIndex, -1)}>Octave -</button>
                                     <button onClick={() => adjustLineOctave(globalIndex, +1)}>Octave +</button>
+                                    {line.notes && line.notes.length === 9 && (
+                                      <>
+                                        <button onClick={() => adjustLineTriplet(globalIndex, -1)} title="Move triplet back">Triplet ←</button>
+                                        <button onClick={() => adjustLineTriplet(globalIndex, +1)} title="Move triplet forward">Triplet →</button>
+                                      </>
+                                    )}
                                   </div>
                                   {line.tags && line.tags.length > 0 && (
                                     <div style={{ marginTop: 6, fontSize: 12, color: '#444' }}>Tags: {line.tags.join(', ')}</div>
@@ -650,15 +837,21 @@ function App() {
                               </div>
                             ) : (
                               <>
-                                <NotationView notes={line.notes} highlightIndex={-1} />
-                                <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
+                                <NotationView notes={line.notes} highlightIndex={-1} tripletStartIndex={line.tripletStartIndex ?? -1} />
+                                <div style={{ marginTop: 6, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                                   <button onClick={() => selectLine(line)}>Select</button>
                                   <button onClick={() => startEditLine(globalIndex)}>Edit</button>
-                                  <button onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }))}>
+                                    <button onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), line.tripletStartIndex ?? -1)}>
                                     Play Line
                                   </button>
                                   <button onClick={() => adjustLineOctave(globalIndex, -1)}>Octave -</button>
                                   <button onClick={() => adjustLineOctave(globalIndex, +1)}>Octave +</button>
+                                  {line.notes && line.notes.length === 9 && (
+                                    <>
+                                      <button onClick={() => adjustLineTriplet(globalIndex, -1)} title="Move triplet back">Triplet ←</button>
+                                      <button onClick={() => adjustLineTriplet(globalIndex, +1)} title="Move triplet forward">Triplet →</button>
+                                    </>
+                                  )}
                                   <button onClick={() => removeLine(globalIndex)} style={{ marginLeft: 'auto' }}>Remove</button>
                                 </div>
                                 {line.tags && line.tags.length > 0 && (
@@ -684,7 +877,8 @@ function App() {
         {savedSequences.length === 0 && <div style={{ color: '#666' }}>No saved sequences</div>}
         <div style={{ marginTop: 8, display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
           <button onClick={exportSequences}>Export Sequences</button>
-          <button onClick={loadDefaults} style={{ backgroundColor: "#4CAF50", color: "white" }}>Load Defaults</button>
+          <button onClick={loadDefaultSequences} style={{ backgroundColor: "#4CAF50", color: "white" }}>Load Default Sequences</button>
+          <button onClick={clearAllSequences} style={{ marginLeft: 8 }}>Clear All Sequences</button>
           <input type="file" accept=".json" onChange={importSequences} />
         </div>
         {savedSequences.map((seq, idx) => (
@@ -692,6 +886,7 @@ function App() {
             <strong>{seq.name}</strong> ({seq.sequence.length} lines)
             <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
               <button onClick={() => loadSequence(idx)}>Load</button>
+              <button onClick={() => renameSequence(idx)}>Rename</button>
               <button onClick={() => deleteSequence(idx)} style={{ marginLeft: 'auto' }}>Delete</button>
             </div>
           </div>
@@ -699,8 +894,13 @@ function App() {
       </Collapsible>
 
       <Collapsible title="📈All Lines" defaultOpen={false} right={<span style={{ fontSize: 12, color: "#666" }}>{lines.length}</span>}>
+        <div style={{ marginTop: 10, marginBottom: 10 }}>
+            <div style={{ background: '#f8f9fa', padding: 10, borderRadius: 6, border: '1px solid #eee' }}>
+              <strong>Tip:</strong> Permanently edit lines here. Changes will reflect in any sequences using these lines.
+            </div>
+        </div>
         {lines.length === 0 && <div style={{ color: '#666' }}>No saved lines</div>}
-
+        
         {/* Group lines by their start degree */}
         {(() => {
           const groups = {};
@@ -737,15 +937,21 @@ function App() {
                       </div>
                     ) : (
                       <>
-                        <NotationView notes={line.notes} highlightIndex={-1} />
+                        <NotationView notes={line.notes} highlightIndex={-1} tripletStartIndex={line.tripletStartIndex ?? -1} />
                         <div style={{ marginTop: 8, display: 'flex', gap: 8, alignItems: 'center' }}>
                           <button onClick={() => startEditLine(globalIndex)}>Edit</button>
-                          <button onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }))}>
+                          <button onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), line.tripletStartIndex ?? -1)}>
                             Play Line
                           </button>
                           <button onClick={() => adjustLineOctave(globalIndex, -1)}>Octave -</button>
                           <button onClick={() => adjustLineOctave(globalIndex, +1)}>Octave +</button>
-                          <button onClick={() => removeLine(globalIndex)} style={{ marginLeft: 'auto' }}>Delete</button>
+                          {line.notes && line.notes.length === 9 && (
+                            <>
+                              <button onClick={() => adjustLineTriplet(globalIndex, -1)} title="Move triplet back">Triplet ←</button>
+                              <button onClick={() => adjustLineTriplet(globalIndex, +1)} title="Move triplet forward">Triplet →</button>
+                            </>
+                          )}
+                          <button onClick={() => removeLine(globalIndex)} style={{ marginLeft: 'auto' }}>Delete Line</button>
                         </div>
                         {line.tags && line.tags.length > 0 && (
                           <div style={{ marginTop: 6, fontSize: 12, color: '#444' }}>Tags: {line.tags.join(', ')}</div>

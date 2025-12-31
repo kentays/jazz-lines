@@ -7,12 +7,13 @@ import {
   Formatter,
   Beam,
   Accidental,
-  Annotation
+  Annotation,
+  Tuplet
 } from "vexflow";
 
 import { noteToDegree } from "../theory/degrees";
 
-export default function NotationView({ notes, highlightIndex = -1 }) {
+export default function NotationView({ notes, highlightIndex = -1, tripletStartIndex = -1 }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -92,22 +93,71 @@ export default function NotationView({ notes, highlightIndex = -1 }) {
       }
     });
 
-    // Create voice (soft mode avoids IncompleteVoice errors)
+    // Create voice in 4/4 (soft mode avoids IncompleteVoice errors)
     const voice = new Voice({
-      num_beats: vexNotes.length,
-      beat_value: 8
+      num_beats: 4,
+      beat_value: 4
     }).setMode(Voice.Mode.SOFT);
 
     voice.addTickables(vexNotes);
 
-    // Beam groups of 4 notes together, remainder notes stay unbeamed
+    // Handle triplet and beaming
     const beams = [];
-    for (let i = 0; i < vexNotes.length; i += 4) {
-      const group = vexNotes.slice(i, i + 4);
-      if (group.length === 4) {
-        beams.push(new Beam(group));
+    const beamedIndices = new Set();
+    let tuplet = null;
+    
+    const hasValidTriplet = tripletStartIndex >= 0 && tripletStartIndex + 3 <= vexNotes.length;
+    
+    // First, handle triplet if present - create a Tuplet
+    if (hasValidTriplet) {
+      const tripletNotes = vexNotes.slice(tripletStartIndex, tripletStartIndex + 3);
+      if (tripletNotes.length === 3) {
+        // Explicitly tell VexFlow this is 3 notes in the time of 2 eighths
+        tuplet = new Tuplet(tripletNotes, {
+          numNotes: 3,
+          notesOccupied: 2,
+          ratioed: false,
+          location: Tuplet.LOCATION_TOP
+        });
+        // Also add a beam for visual connection of the triplet notes
+        beams.push(new Beam(tripletNotes));
+        beamedIndices.add(tripletStartIndex);
+        beamedIndices.add(tripletStartIndex + 1);
+        beamedIndices.add(tripletStartIndex + 2);
       }
     }
+
+    // Then, beam notes in groups of 4, or pairs if fewer than 4 remain
+    let i = 0;
+    while (i < vexNotes.length) {
+      // Skip if already beamed
+      if (beamedIndices.has(i)) {
+        i++;
+        continue;
+      }
+      
+      // Collect unbeamed notes starting from i, but stop at any beamed note
+      const group = [];
+      for (let j = i; j < vexNotes.length && group.length < 4; j++) {
+        if (beamedIndices.has(j)) {
+          // Stop collecting when we hit a beamed note
+          break;
+        }
+        group.push(vexNotes[j]);
+      }
+      
+      // Create a beam if we have 2 or more notes
+      if (group.length >= 2) {
+        beams.push(new Beam(group));
+        console.log(`Creating beam with ${group.length} notes starting at index ${i}`);
+      }
+      
+      // Move to next unprocessed index
+      i += group.length > 0 ? group.length : 1;
+    }
+
+    console.log(`NotationView: ${vexNotes.length} notes, tripletStartIndex=${tripletStartIndex}, ${beams.length} beams + ${tuplet ? 1 : 0} tuplet`);
+    if (hasValidTriplet) console.log(`  - Tuplet: notes [${tripletStartIndex}, ${tripletStartIndex+1}, ${tripletStartIndex+2}]`);
 
     // Format and draw
     new Formatter()
@@ -118,7 +168,12 @@ export default function NotationView({ notes, highlightIndex = -1 }) {
 
     // Draw beams after the voice is drawn
     beams.forEach((b) => b.setContext(context).draw());
-  }, [notes, highlightIndex]);
+    
+    // Draw tuplet (triplet) if present
+    if (tuplet) {
+      tuplet.setContext(context).draw();
+    }
+  }, [notes, highlightIndex, tripletStartIndex]);
 
   return <div ref={containerRef} />;
 }

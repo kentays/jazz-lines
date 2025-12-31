@@ -1,6 +1,6 @@
 [
   {
-    "name": "2 Measure Minor",
+    "name": "2 Measure Minor Sequence",
     "sequence": [
       {
         "notes": [
@@ -157,7 +157,7 @@
     ]
   },
   {
-    "name": "Minor 2 Measure Triplet",
+    "name": "2 Measure Minor Sequence #2",
     "sequence": [
       {
         "notes": [
@@ -321,7 +321,7 @@
     ]
   },
   {
-    "name": "Long 4 Measure Line",
+    "name": "4 Measure Sequence",
     "sequence": [
       {
         "notes": [
@@ -637,7 +637,7 @@
     ]
   },
   {
-    "name": "4 Measure Sequence",
+    "name": "4 Measure Sequence #2",
     "sequence": [
       {
         "notes": [

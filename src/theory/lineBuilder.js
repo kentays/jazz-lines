@@ -1,11 +1,17 @@
-import { notesToIntervals } from "./intervals";
-import { noteToDegree } from "./degrees";
+import { notesToIntervals } from "./intervals.js";
+import { noteToDegree } from "./degrees.js";
 
-export function buildJazzLine(notes) {
+export function buildJazzLine(notes, tripletStartIndex = -1) {
   const intervals = notesToIntervals(notes);
 
   const start = notes[0];
   const end = notes[notes.length - 1];
+
+  // For 9-note lines, default triplet to last 3 notes
+  let finalTripletIndex = tripletStartIndex;
+  if (tripletStartIndex === -1 && notes.length === 9) {
+    finalTripletIndex = 6; // last 3 notes
+  }
 
   return {
     notes,
@@ -21,6 +27,7 @@ export function buildJazzLine(notes) {
       degree: noteToDegree(end)
     },
 
-    length: notes.length
+    length: notes.length,
+    tripletStartIndex: finalTripletIndex
   };
 }

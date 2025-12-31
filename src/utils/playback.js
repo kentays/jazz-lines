@@ -1,7 +1,9 @@
 import * as Tone from "tone";
 
 // Play a single line of notes with highlight callback
-export async function playLine(notes, duration = "8n", onNotePlay) {
+// Play a single line of notes with highlight callback.
+// Accepts optional `tripletStartIndex` to play three notes in time of two eighths.
+export async function playLine(notes, duration = "8n", onNotePlay, tripletStartIndex = -1) {
   await Tone.start();
   const synth = new Tone.Synth().toDestination();
 
@@ -10,18 +12,25 @@ export async function playLine(notes, duration = "8n", onNotePlay) {
   Tone.Transport.cancel();
   Tone.Transport.bpm.value = 120;
 
-  const noteDurationSeconds = Tone.Time(duration).toSeconds();
-  const totalTime = noteDurationSeconds * notes.length;
+  const baseNoteSeconds = Tone.Time(duration).toSeconds();
+  const tripletNoteSeconds = baseNoteSeconds * (2 / 3); // three in time of two
 
+  // Schedule notes, adjusting timing for triplet notes
+  let timeCursor = 0;
   notes.forEach((noteObj, i) => {
-    const time = noteDurationSeconds * i;
+    const isTriplet = tripletStartIndex >= 0 && i >= tripletStartIndex && i < tripletStartIndex + 3;
+    const thisDuration = isTriplet ? tripletNoteSeconds : baseNoteSeconds;
     const noteStr = `${noteObj.letter}${noteObj.accidental || ""}${noteObj.octave}`;
 
     Tone.Transport.schedule((timeStamp) => {
-      synth.triggerAttackRelease(noteStr, duration, timeStamp);
+      synth.triggerAttackRelease(noteStr, thisDuration, timeStamp);
       if (onNotePlay) onNotePlay(i);
-    }, time);
+    }, timeCursor);
+
+    timeCursor += thisDuration;
   });
+
+  const totalTime = timeCursor;
 
   if (onNotePlay) {
     Tone.Transport.schedule(() => onNotePlay(-1), totalTime);
@@ -57,17 +66,22 @@ export async function playSequence(sequence, duration = "8n", onNotePlay) {
   Tone.Transport.bpm.value = 120;
 
   let timeOffset = 0;
-  const noteDurationSeconds = Tone.Time(duration).toSeconds();
+  const baseNoteSeconds = Tone.Time(duration).toSeconds();
+  const tripletNoteSeconds = baseNoteSeconds * (2 / 3);
 
   sequence.forEach((line, lineIdx) => {
+    const tripletStart = line.tripletStartIndex ?? -1;
     line.notes.forEach((noteObj, noteIdx) => {
+      const isTriplet = tripletStart >= 0 && noteIdx >= tripletStart && noteIdx < tripletStart + 3;
+      const thisDurationSeconds = isTriplet ? tripletNoteSeconds : baseNoteSeconds;
       const noteStr = `${noteObj.letter}${noteObj.accidental || ""}${noteObj.octave}`;
+
       Tone.Transport.schedule((timeStamp) => {
-        synth.triggerAttackRelease(noteStr, duration, timeStamp);
+        synth.triggerAttackRelease(noteStr, thisDurationSeconds, timeStamp);
         if (onNotePlay) onNotePlay(lineIdx, noteIdx);
       }, timeOffset);
 
-      timeOffset += noteDurationSeconds;
+      timeOffset += thisDurationSeconds;
     });
   });
 
