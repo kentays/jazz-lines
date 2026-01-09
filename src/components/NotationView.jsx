@@ -12,8 +12,9 @@ import {
 } from "vexflow";
 
 import { noteToDegree } from "../theory/degrees";
+import { computeChordSymbols } from "../theory/chords";
 
-export default function NotationView({ notes, highlightIndex = -1, tripletStartIndex = -1 }) {
+export default function NotationView({ notes, tags = [], highlightIndex = -1, tripletStartIndex = -1 }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -93,6 +94,22 @@ export default function NotationView({ notes, highlightIndex = -1, tripletStartI
       }
     });
 
+    // Compute chord symbols from tags and attach them to the relevant notes (top annotations)
+    const chordSymbols = computeChordSymbols(notes, tags || []);
+    console.log('NotationView chordSymbols', chordSymbols, 'tags=', tags);
+    chordSymbols.forEach((c) => {
+      const idx = c.index;
+      if (typeof idx === 'number' && idx >= 0 && idx < vexNotes.length) {
+        const vn = vexNotes[idx];
+        vn.addModifier(
+          new Annotation(c.text)
+            .setFont("Arial", 14)
+            .setVerticalJustification(Annotation.VerticalJustify.TOP),
+          0
+        );
+      }
+    });
+
     // Create voice in 4/4 (soft mode avoids IncompleteVoice errors)
     const voice = new Voice({
       num_beats: 4,
@@ -166,6 +183,29 @@ export default function NotationView({ notes, highlightIndex = -1, tripletStartI
 
     voice.draw(context, stave);
 
+    // Draw whole-measure (stave-centered) chord symbols only when they are not
+    // already attached to a specific note index (to avoid duplicates).
+    chordSymbols.forEach((c) => {
+      if (c.whole) {
+        if (typeof c.index === 'number') {
+          // already rendered on a note at that index; skip stave-centered draw
+          return;
+        }
+        try {
+          const text = c.text || '';
+          // Stave was created at x=10 width=680 in this view
+          const centerX = 10 + 680 / 2;
+          const y = 30; // above the stave (stave y is 50)
+          context.setFont("Arial", 14, "");
+          if (typeof context.fillText === 'function') {
+            context.fillText(text, centerX, y);
+          }
+        } catch (e) {
+          console.warn('Failed to draw whole-measure chord symbol', e);
+        }
+      }
+    });
+
     // Draw beams after the voice is drawn
     beams.forEach((b) => b.setContext(context).draw());
     
@@ -173,7 +213,7 @@ export default function NotationView({ notes, highlightIndex = -1, tripletStartI
     if (tuplet) {
       tuplet.setContext(context).draw();
     }
-  }, [notes, highlightIndex, tripletStartIndex]);
+  }, [notes, tags, highlightIndex, tripletStartIndex]);
 
   return <div ref={containerRef} />;
 }

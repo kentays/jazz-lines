@@ -24,9 +24,27 @@ function normalizeLinesWithTriplet(lines) {
 }
 
 function App() {
+  const BASE = (import.meta && import.meta.env && import.meta.env.BASE_URL) ? import.meta.env.BASE_URL : '/';
   const [lines, setLines] = useState(() => {
     const saved = localStorage.getItem("jazzLines");
-    return saved ? normalizeLinesWithTriplet(JSON.parse(saved)) : [];
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return normalizeLinesWithTriplet(parsed.map((l) => ({ ...(l || {}), libraryId: l.libraryId ?? 'user' })));
+      } catch (e) {
+        return [];
+      }
+    }
+    return [];
+  });
+
+  const [libraries, setLibraries] = useState(() => {
+    try {
+      const raw = localStorage.getItem('libraries');
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      return [];
+    }
   });
 
   const [currentSequence, setCurrentSequence] = useState([]);
@@ -48,44 +66,121 @@ function App() {
   useEffect(() => {
     const hasLoaded = localStorage.getItem("defaultDataLoaded");
     if (!hasLoaded && lines.length === 0 && savedSequences.length === 0) {
-      Promise.all([
-        fetch("/jazz-lines/jazz_lines.json").then((res) => {
-          if (!res.ok) throw new Error(`Failed to load jazz_lines.json: ${res.status}`);
-          return res.json();
-        }),
-        fetch("/jazz-lines/saved_sequences.json").then((res) => {
-          if (!res.ok) throw new Error(`Failed to load saved_sequences.json: ${res.status}`);
-          return res.json();
-        })
-      ])
-        .then(([linesData, sequencesData]) => {
-          if (Array.isArray(linesData)) {
-            const normalizedLines = normalizeLinesWithTriplet(linesData);
-            setLines(normalizedLines);
-            localStorage.setItem("jazzLines", JSON.stringify(normalizedLines));
+      const DEFAULTS = [
+        { path: `${BASE}jazz_lines.json`, id: "jazz_lines", name: "Jazz Lines" },
+        { path: `${BASE}hexatonic_lines.json`, id: "hexatonic_lines", name: "Hexatonic Lines" }
+      ];
+
+      Promise.allSettled(DEFAULTS.map(d => fetch(d.path).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })))
+        .then((results) => {
+          const newLibs = [];
+          const addedLines = [];
+          results.forEach((res, i) => {
+            const def = DEFAULTS[i];
+            if (res.status === 'fulfilled' && Array.isArray(res.value)) {
+              const normalized = normalizeLinesWithTriplet(res.value).map((ln) => ({ ...(ln || {}), libraryId: def.id }));
+              newLibs.push({ id: def.id, name: def.name, enabled: true, editable: false });
+              addedLines.push(...normalized);
+            }
+          });
+
+          if (addedLines.length > 0) {
+            const updatedLines = [...lines, ...addedLines];
+            const updatedLibs = [...libraries, ...newLibs];
+            setLines(updatedLines);
+            setLibraries(updatedLibs);
+            try { localStorage.setItem('jazzLines', JSON.stringify(updatedLines)); } catch (e) {}
+            try { localStorage.setItem('libraries', JSON.stringify(updatedLibs)); } catch (e) {}
           }
-          if (Array.isArray(sequencesData)) {
-            const normalizedSequences = sequencesData.map((seq) =>
-              Array.isArray(seq) ? normalizeLinesWithTriplet(seq) : seq
-            );
-            setSavedSequences(normalizedSequences);
-            localStorage.setItem("savedSequences", JSON.stringify(normalizedSequences));
-          }
-          localStorage.setItem("defaultDataLoaded", "true");
+            // also try loading saved sequences if present
+            fetch(`${BASE}saved_sequences.json`)
+            .then((res) => { if (!res.ok) throw new Error(res.status); return res.json(); })
+            .then((sequencesData) => {
+              if (Array.isArray(sequencesData)) {
+                const normalizedSequences = sequencesData.map((seq) => Array.isArray(seq) ? normalizeLinesWithTriplet(seq) : seq);
+                setSavedSequences(normalizedSequences);
+                localStorage.setItem('savedSequences', JSON.stringify(normalizedSequences));
+              }
+              localStorage.setItem('defaultDataLoaded', 'true');
+            })
+            .catch(() => { localStorage.setItem('defaultDataLoaded', 'true'); });
         })
-        .catch((err) => console.warn("Failed to load default files:", err));
+        .catch((err) => console.warn('Failed to load default library files:', err));
     }
   }, []);
   const [editingIndex, setEditingIndex] = useState(null);
   const [editText, setEditText] = useState("");
   const [editTags, setEditTags] = useState("");
+  const [editComment, setEditComment] = useState("");
   // highlight: { area: 'available'|'sequence'|null, lineIdx: number, noteIdx: number }
   const [highlight, setHighlight] = useState({ area: null, lineIdx: -1, noteIdx: -1 });
+  const [connectAnywhere, setConnectAnywhere] = useState(() => {
+    try {
+      return localStorage.getItem('connectAnywhere') === 'true';
+    } catch (e) {
+      return false;
+    }
+  });
+  useEffect(() => {
+    try { localStorage.setItem('connectAnywhere', connectAnywhere ? 'true' : 'false'); } catch (e) {}
+  }, [connectAnywhere]);
+  const [allowDuplicates, setAllowDuplicates] = useState(() => {
+    try {
+      const saved = localStorage.getItem('allowDuplicates');
+      return saved === 'true';
+    } catch (e) {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('allowDuplicates', allowDuplicates ? 'true' : 'false');
+    } catch (e) {
+      // ignore
+    }
+  }, [allowDuplicates]);
+
+  // Library selection modal state for imports/adds
+  const [pendingImport, setPendingImport] = useState(null); // { lines: [...] }
+  const [libraryDialogSelected, setLibraryDialogSelected] = useState('user');
+  const [libraryDialogNewName, setLibraryDialogNewName] = useState('');
+  const [libraryDialogComment, setLibraryDialogComment] = useState('');
+
+  const openLibraryDialogForLines = (linesToImport) => {
+    setPendingImport({ lines: linesToImport });
+    setLibraryDialogSelected('user');
+    setLibraryDialogNewName('');
+    setLibraryDialogComment((linesToImport && linesToImport.length === 1 && linesToImport[0].comment) ? linesToImport[0].comment : '');
+  };
+
+  const confirmLibraryDialog = () => {
+    if (!pendingImport) return;
+    let targetId = libraryDialogSelected || 'user';
+    if (libraryDialogNewName && libraryDialogNewName.trim() !== '') {
+      const newId = createLibraryWithName(libraryDialogNewName.trim());
+      if (newId) targetId = newId;
+    }
+    const toAdd = (pendingImport.lines || []).map((l) => ({ ...(l || {}), libraryId: l.libraryId ?? targetId, comment: (libraryDialogComment && libraryDialogComment.trim() !== '') ? libraryDialogComment.trim() : l.comment }));
+    const updated = [...lines, ...toAdd];
+    setLines(updated);
+    try { localStorage.setItem('jazzLines', JSON.stringify(updated)); } catch (e) {}
+    setPendingImport(null);
+    setLibraryDialogNewName('');
+    setLibraryDialogSelected('user');
+    setLibraryDialogComment('');
+  };
+
+  const cancelLibraryDialog = () => {
+    setPendingImport(null);
+    setLibraryDialogNewName('');
+    setLibraryDialogSelected('user');
+    setLibraryDialogComment('');
+  };
 
   const addLine = (line) => {
-    const updated = [...lines, line];
-    setLines(updated);
-    localStorage.setItem("jazzLines", JSON.stringify(updated));
+    // Open library selection modal for this single line
+    openLibraryDialogForLines([ line ]);
   };
 
   const removeLine = (index) => {
@@ -111,6 +206,23 @@ function App() {
     URL.revokeObjectURL(url);
   };
 
+  const exportLibrary = (libraryId) => {
+    const libLines = lines.filter(l => (libraryId === 'user' ? (l.libraryId === 'user' || !l.libraryId) : l.libraryId === libraryId));
+    if (!libLines || libLines.length === 0) {
+      alert('No lines to export for this library.');
+      return;
+    }
+    const lib = libraries.find(l => l.id === libraryId);
+    const name = lib ? lib.name.replace(/[^a-z0-9\-_ ]/gi, '_') : (libraryId === 'user' ? 'personal_lines' : libraryId);
+    const blob = new Blob([JSON.stringify(libLines, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${name}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const importJSON = (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -119,8 +231,9 @@ function App() {
       try {
         const imported = JSON.parse(e.target.result);
         if (!Array.isArray(imported)) throw new Error("Invalid JSON");
-        setLines(imported);
-        localStorage.setItem("jazzLines", JSON.stringify(imported));
+        // Open library selection modal to decide where to import these lines
+        const normalized = normalizeLinesWithTriplet(imported);
+        openLibraryDialogForLines(normalized);
         setCurrentSequence([]);
         setHighlight({ lineIdx: -1, noteIdx: -1 });
       } catch (err) {
@@ -128,6 +241,61 @@ function App() {
       }
     };
     reader.readAsText(file);
+  };
+
+  // Helpers for library visibility
+  const isLibraryEnabled = (libraryId) => {
+    if (!libraryId || libraryId === 'user') return true;
+    const lib = libraries.find(l => l.id === libraryId);
+    return lib ? !!lib.enabled : true;
+  };
+
+  const toggleLibraryEnabled = (id) => {
+    const updated = libraries.map(l => l.id === id ? { ...l, enabled: !l.enabled } : l);
+    setLibraries(updated);
+    try { localStorage.setItem('libraries', JSON.stringify(updated)); } catch (e) {}
+  };
+
+  const createLibrary = () => {
+    const name = window.prompt('New library name:');
+    if (!name) return;
+    createLibraryWithName(name);
+  };
+
+  // Create a library record programmatically and return its id. If the name collides, returns existing id.
+  const createLibraryWithName = (name) => {
+    const cleaned = String(name || '').trim();
+    if (!cleaned) return null;
+    let id = cleaned.toLowerCase().replace(/[^a-z0-9]+/g, '_');
+    if (!id) id = `lib_${Date.now()}`;
+    // avoid collision
+    if (libraries.find(l => l.id === id)) {
+      return id; // existing
+    }
+    // ensure unique id by appending suffix if needed
+    let uniqueId = id;
+    let suffix = 1;
+    while (libraries.find(l => l.id === uniqueId)) {
+      uniqueId = `${id}_${suffix++}`;
+    }
+    const newLib = { id: uniqueId, name: cleaned, enabled: true, editable: true };
+    const updated = [...libraries, newLib];
+    setLibraries(updated);
+    try { localStorage.setItem('libraries', JSON.stringify(updated)); } catch (e) {}
+    return uniqueId;
+  };
+
+  const deleteLibrary = (id) => {
+    const lib = libraries.find(l => l.id === id);
+    if (!lib) return;
+    const ok = window.confirm(`Delete library '${lib.name}' and all its lines? This cannot be undone.`);
+    if (!ok) return;
+    const updatedLibs = libraries.filter(l => l.id !== id);
+    const updatedLines = lines.filter(line => line.libraryId !== id);
+    setLibraries(updatedLibs);
+    setLines(updatedLines);
+    try { localStorage.setItem('libraries', JSON.stringify(updatedLibs)); } catch (e) {}
+    try { localStorage.setItem('jazzLines', JSON.stringify(updatedLines)); } catch (e) {}
   };
 
   const importMusicXml = (event) => {
@@ -143,10 +311,10 @@ function App() {
           return;
         }
 
-        const updated = [...lines, ...importedLines];
-        setLines(updated);
-        localStorage.setItem("jazzLines", JSON.stringify(updated));
-        alert(`Imported ${importedLines.length} lines from MusicXML`);
+        // Open library selection modal to decide where to import these lines
+        const normalized = normalizeLinesWithTriplet(importedLines);
+        openLibraryDialogForLines(normalized);
+        alert(`Imported ${importedLines.length} lines from MusicXML (choose target library in dialog)`);
       } catch (err) {
         alert("Failed to import MusicXML: " + err.message);
       }
@@ -252,7 +420,7 @@ function App() {
     const root = ReactDOM.createRoot(printContainer);
     const components = currentSequence.map((line, idx) => (
       <div key={idx} style={{ marginBottom: '30px', pageBreakInside: 'avoid' }}>
-        <NotationView notes={line.notes} highlightIndex={-1} tripletStartIndex={line.tripletStartIndex ?? -1} />
+        <NotationView notes={line.notes} tags={line.tags ?? []} highlightIndex={-1} tripletStartIndex={line.tripletStartIndex ?? -1} />
       </div>
     ));
     root.render(<>{components}</>);
@@ -305,12 +473,12 @@ function App() {
     const ok = window.confirm("Load default library and sequences? This will replace your current data.");
     if (!ok) return;
     
-    Promise.all([
-      fetch("/jazz-lines/jazz_lines.json").then((res) => {
+      Promise.all([
+      fetch(`${BASE}jazz_lines.json`).then((res) => {
         if (!res.ok) throw new Error(`Failed to load jazz_lines.json: ${res.status}`);
         return res.json();
       }),
-      fetch("/jazz-lines/saved_sequences.json").then((res) => {
+      fetch(`${BASE}saved_sequences.json`).then((res) => {
         if (!res.ok) throw new Error(`Failed to load saved_sequences.json: ${res.status}`);
         return res.json();
       })
@@ -340,26 +508,78 @@ function App() {
 
   // Load only default lines (library)
   const loadDefaultLines = () => {
-    const ok = window.confirm("Load default library? This will replace your current lines.");
+    const ok = window.confirm("Load default libraries? This will add default libraries (Jazz Lines, Hexatonic Lines) to your library.");
     if (!ok) return;
-    fetch("/jazz-lines/jazz_lines.json")
-      .then((res) => {
-        if (!res.ok) throw new Error(`Failed to load jazz_lines.json: ${res.status}`);
-        return res.json();
-      })
-      .then((linesData) => {
-        if (Array.isArray(linesData)) {
-          const normalizedLines = normalizeLinesWithTriplet(linesData);
-          setLines(normalizedLines);
-          localStorage.setItem("jazzLines", JSON.stringify(normalizedLines));
-          setCurrentSequence([]);
-          setHighlight({ area: null, lineIdx: -1, noteIdx: -1 });
-          alert("Default library loaded!");
+
+    const DEFAULTS = [
+      { path: `${BASE}jazz_lines.json`, id: "jazz_lines", name: "Jazz Lines" },
+      { path: `${BASE}hexatonic_lines.json`, id: "hexatonic_lines", name: "Hexatonic Lines" }
+    ];
+
+    Promise.allSettled(DEFAULTS.map(d => fetch(d.path).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })))
+      .then((results) => {
+        const addedLines = [];
+        const addedLibs = [];
+        const updatedLibs = [];
+        const skipped = [];
+
+        results.forEach((res, i) => {
+          const def = DEFAULTS[i];
+          if (res.status === 'fulfilled' && Array.isArray(res.value)) {
+            const normalized = normalizeLinesWithTriplet(res.value).map((ln) => ({ ...(ln || {}), libraryId: def.id }));
+            const exists = libraries.find(l => l.id === def.id);
+            if (!exists) {
+              // add new library and its lines
+              addedLibs.push(def.id);
+              addedLines.push(...normalized);
+            } else {
+              // library exists — ask the user whether to replace its lines
+              const wantReplace = window.confirm(`${def.name} is already loaded. Replace its lines with the default version?`);
+              if (wantReplace) {
+                updatedLibs.push(def.id);
+                // remove old lines from this library, then add fresh ones
+                // we'll remove them below when building finalLines
+                addedLines.push(...normalized);
+              } else {
+                skipped.push(def.id);
+              }
+            }
+          } else {
+            skipped.push(def.id);
+          }
+        });
+
+        if (addedLibs.length === 0 && updatedLibs.length === 0) {
+          alert('No default libraries were added or updated. They may already be loaded or failed to fetch.');
+          return;
         }
+
+        // Create library records for newly added libraries
+        const newLibRecords = addedLibs.map(id => {
+          const def = DEFAULTS.find(d => d.id === id);
+          return { id: def.id, name: def.name, enabled: true, editable: false };
+        });
+        const updatedLibsState = [...libraries, ...newLibRecords];
+
+        // Remove replaced libraries' old lines
+        let finalLines = [...lines];
+        updatedLibs.forEach(id => { finalLines = finalLines.filter(l => l.libraryId !== id); });
+        finalLines = [...finalLines, ...addedLines];
+
+        setLines(finalLines);
+        setLibraries(updatedLibsState);
+        try { localStorage.setItem('jazzLines', JSON.stringify(finalLines)); } catch (e) {}
+        try { localStorage.setItem('libraries', JSON.stringify(updatedLibsState)); } catch (e) {}
+
+        const summary = [];
+        if (addedLibs.length) summary.push(`Added: ${addedLibs.join(', ')}`);
+        if (updatedLibs.length) summary.push(`Replaced: ${updatedLibs.join(', ')}`);
+        if (skipped.length) summary.push(`Skipped/Failed: ${skipped.join(', ')}`);
+        alert(`Libraries update complete. ${summary.join(' / ')}`);
       })
       .catch((err) => {
-        console.error("Failed to load default lines:", err);
-        alert("Failed to load default lines: " + err.message);
+        console.error("Failed to load default libraries:", err);
+        alert("Failed to load default libraries: " + err.message);
       });
   };
 
@@ -367,7 +587,7 @@ function App() {
   const loadDefaultSequences = () => {
     const ok = window.confirm("Load default sequences? This will replace your saved sequences.");
     if (!ok) return;
-    fetch("/jazz-lines/saved_sequences.json")
+    fetch(`${BASE}saved_sequences.json`)
       .then((res) => {
         if (!res.ok) throw new Error(`Failed to load saved_sequences.json: ${res.status}`);
         return res.json();
@@ -526,13 +746,35 @@ function App() {
     if (!line) return;
     setEditingIndex(globalIndex);
     setEditText(notesToRawString(line.notes));
-    setEditTags((line.tags || []).join(', '));
+    setEditTags(getCanonicalFunctionTag(line.tags || []));
+    setEditComment(line.comment || "");
   };
+
+  // Map existing tags array to a canonical single function-tag string
+  function getCanonicalFunctionTag(tagsArray) {
+    const tagStr = (tagsArray || []).map(t => String(t).toLowerCase()).join(' ');
+    if (!tagStr || tagStr.trim() === '') return '';
+    if (tagStr.includes('ii-v') || tagStr.includes('i i-v')) {
+      if (tagStr.includes('minor') || tagStr.includes('min')) return 'minor ii-v';
+      return 'major ii-v';
+    }
+    if (tagStr.includes('tritone')) return 'tritone sub';
+    if (tagStr.includes('static') && tagStr.includes('minor')) return 'static minor';
+    if (tagStr.includes('h/w') || tagStr.includes('hw') || tagStr.includes('diminished')) return 'h/w diminished';
+    if (tagStr.includes('phrygian') || tagStr.includes('b13')) return 'phrygian dominant';
+    if (tagStr.includes('altered') || tagStr.includes('#5')) return 'altered dominant';
+    if (tagStr.includes('v7') || tagStr.includes('dominant')) return 'dominant 7';
+    if (tagStr.includes('13') || tagStr.includes('b9') || tagStr.includes('13b9')) return 'h/w diminished';
+    // fallback: keep first tag
+    const first = (tagsArray || [])[0];
+    return first ? String(first).toLowerCase() : '';
+  }
 
   const cancelEditLine = () => {
     setEditingIndex(null);
     setEditText("");
     setEditTags("");
+    setEditComment("");
   };
 
   const saveEditLine = () => {
@@ -554,12 +796,28 @@ function App() {
         .map(t => t.trim())
         .filter(t => t.length > 0);
       if (tags.length > 0) updatedLine.tags = tags;
+      // attach user comment
+      if (typeof editComment === 'string' && editComment.trim() !== '') {
+        updatedLine.comment = editComment.trim();
+      } else {
+        updatedLine.comment = undefined;
+      }
+
+      // Preserve original metadata (library assignment, triplet position, any other fields)
+      const originalLine = lines[editingIndex];
+      if (originalLine) {
+        if (typeof originalLine.libraryId !== 'undefined') updatedLine.libraryId = originalLine.libraryId;
+        if (typeof originalLine.tripletStartIndex !== 'undefined') updatedLine.tripletStartIndex = originalLine.tripletStartIndex;
+        // preserve any other fields the original had that buildJazzLine doesn't set
+        const preservedKeys = Object.keys(originalLine).filter(k => !(k in updatedLine));
+        preservedKeys.forEach(k => { updatedLine[k] = originalLine[k]; });
+      }
 
       const updatedLines = [...lines];
       const oldLine = updatedLines[editingIndex];
       updatedLines[editingIndex] = updatedLine;
       setLines(updatedLines);
-      localStorage.setItem("jazzLines", JSON.stringify(updatedLines));
+      try { localStorage.setItem("jazzLines", JSON.stringify(updatedLines)); } catch (e) {}
 
       // Update any occurrences in currentSequence that referenced the old line object
       const updatedSequence = currentSequence.map(item => (item === oldLine ? updatedLine : item));
@@ -569,9 +827,70 @@ function App() {
       setEditingIndex(null);
       setEditText("");
       setEditTags("");
+      setEditComment("");
     } catch (err) {
       alert("Failed to parse notes: " + err.message);
     }
+  };
+
+  // Categorize a list of lines by musical function for display
+  const categorizeByFunction = (linesList) => {
+    const buckets = {
+      'Major ii-v': [],
+      'Minor ii-v': [],
+      'Static Minor': [],
+      'Dominant 7': [],
+      'Altered Dominant': [],
+      'Phrygian Dominant': [],
+      'H/W Diminished': [],
+      'Tritone Sub': [],
+      'Other': []
+    };
+
+    linesList.forEach((line) => {
+      const tags = (line.tags || []).map(t => String(t).toLowerCase());
+      const tagStr = tags.join(' ');
+
+      if (tagStr.includes('ii-v') || tagStr.includes('i i-v') ) {
+        if (tagStr.includes('minor') || tagStr.includes('min')) buckets['Minor ii-v'].push(line);
+        else buckets['Major ii-v'].push(line);
+        return;
+      }
+
+      if (tagStr.includes('static') && tagStr.includes('minor')) {
+        buckets['Static Minor'].push(line);
+        return;
+      }
+
+      if (tagStr.includes('altered') || tagStr.includes('#5') || tagStr.includes('v7#5') || tagStr.includes('g7alt')) {
+        buckets['Altered Dominant'].push(line);
+        return;
+      }
+
+      if (tagStr.includes('v7') || tagStr.includes('v 7') || tagStr.includes('dominant')) {
+        buckets['Dominant 7'].push(line);
+        return;
+      }
+
+      if (tagStr.includes('phrygian') || tagStr.includes('b13')) {
+        buckets['Phrygian Dominant'].push(line);
+        return;
+      }
+
+      if (tagStr.includes('h/w') || tagStr.includes('hw') || tagStr.includes('diminished') || tagStr.includes('13') || tagStr.includes('b9')) {
+        buckets['H/W Diminished'].push(line);
+        return;
+      }
+
+      if (tagStr.includes('tritone')) {
+        buckets['Tritone Sub'].push(line);
+        return;
+      }
+
+      buckets['Other'].push(line);
+    });
+
+    return buckets;
   };
 
   return (
@@ -584,14 +903,72 @@ function App() {
         <div style={{ marginTop: 8, display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
           <button onClick={clearLines}>Clear All Lines</button>
           <button onClick={exportJSON}>Export JSON</button>
-          <button onClick={loadDefaultLines} style={{ backgroundColor: "#4CAF50", color: "white" }}>Load Default Lines</button>
+          <button onClick={loadDefaultLines} style={{ backgroundColor: "#4CAF50", color: "white" }}>Load Default Libraries</button>
           <input type="file" accept=".json" onChange={importJSON} />
         </div>
+        {pendingImport && (
+          <div style={{ position: 'fixed', left: 0, top: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 2000 }}>
+            <div style={{ background: '#fff', padding: 18, borderRadius: 8, width: 520, maxWidth: '94%' }}>
+              <h3 style={{ marginTop: 0 }}>Import Target</h3>
+              <div style={{ marginBottom: 8, color: '#444' }}>{(pendingImport.lines || []).length} line(s) to import</div>
+              <div style={{ marginBottom: 8 }}>
+                <label style={{ display: 'block', fontSize: 13, marginBottom: 6 }}>Choose existing library</label>
+                <select id="lib-select" value={libraryDialogSelected} onChange={(e) => setLibraryDialogSelected(e.target.value)} style={{ width: '100%', padding: 8 }}>
+                  <option value="user">Personal (My Lines)</option>
+                  {libraries.map(lib => (
+                    <option key={lib.id} value={lib.id}>{lib.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: 13, marginBottom: 6 }}>Or create new library</label>
+                <input placeholder="New library name" value={libraryDialogNewName} onChange={(e) => setLibraryDialogNewName(e.target.value)} style={{ width: '100%', padding: 8 }} />
+              </div>
+              <div style={{ marginTop: 8 }}>
+                <label style={{ display: 'block', fontSize: 13, marginBottom: 6 }}>Add a comment / note</label>
+                <textarea placeholder="Optional comment for imported lines" value={libraryDialogComment} onChange={(e) => setLibraryDialogComment(e.target.value)} style={{ width: '100%', padding: 8, minHeight: 64 }} />
+              </div>
+              <div style={{ marginTop: 12, display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+                <button onClick={cancelLibraryDialog}>Cancel</button>
+                <button onClick={confirmLibraryDialog} style={{ backgroundColor: '#4CAF50', color: '#fff', padding: '6px 12px', border: 'none', borderRadius: 4 }}>Confirm</button>
+              </div>
+            </div>
+          </div>
+        )}
         <div style={{ marginTop: 10 }}>
           <label style={{ display: 'block', marginTop: 8 }}>
             Import MusicXML (each measure → one line):
             <input type="file" accept=".xml,.musicxml" onChange={importMusicXml} />
           </label>
+        </div>
+
+        <div style={{ marginTop: 12, borderTop: '1px dashed #eee', paddingTop: 12 }}>
+          <h4 style={{ margin: 0, marginBottom: 8 }}>Libraries</h4>
+          {libraries.length === 0 && <div style={{ color: '#666', marginBottom: 8 }}>No libraries loaded</div>}
+          {libraries.map((lib) => (
+            <div key={lib.id} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+              <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                <input type="checkbox" checked={!!lib.enabled} onChange={() => toggleLibraryEnabled(lib.id)} />
+                <strong>{lib.name}</strong>
+              </label>
+              <span style={{ color: '#666', fontSize: 12 }}>
+                ({lines.filter(l => l.libraryId === lib.id).length} lines)
+              </span>
+              <button onClick={() => exportLibrary(lib.id)} style={{ marginLeft: 8 }}>Export</button>
+              {lib.editable && (
+                <button onClick={() => deleteLibrary(lib.id)} style={{ marginLeft: 'auto' }}>Delete</button>
+              )}
+            </div>
+          ))}
+          {/* Export personal lines if present */}
+          {lines.some(l => !l.libraryId || l.libraryId === 'user') && (
+            <div style={{ marginTop: 8 }}>
+              <button onClick={() => exportLibrary('user')}>Export Personal Lines</button>
+            </div>
+          )}
+          <div style={{ marginTop: 6 }}>
+            <button onClick={createLibrary}>➕ Create New Library</button>
+          </div>
         </div>
       </Collapsible>
 
@@ -602,6 +979,20 @@ function App() {
           <div style={{ background: '#f8f9fa', padding: 10, borderRadius: 6, border: '1px solid #eee' }}>
             <strong>Tip:</strong> Select a starting line from the "Available Lines" groups below to begin a sequence. After choosing the first line, the panel will show subsequent available lines organized by musical relationship (half-step up/down, whole-step up/down, chord-tone up/down).
           </div>
+        </div>
+
+        <div style={{ marginTop: 8 }}>
+          <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+            <input type="checkbox" checked={connectAnywhere} onChange={(e) => setConnectAnywhere(e.target.checked)} />
+            🔗 Connect Anywhere — show all lines grouped by their starting note
+          </label>
+        </div>
+
+        <div style={{ marginTop: 8 }}>
+          <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+            <input type="checkbox" checked={allowDuplicates} onChange={(e) => setAllowDuplicates(e.target.checked)} />
+            👥 Allow duplicate lines in sequence
+          </label>
         </div>
 
         <h4 style={{ marginTop: 8}}>Current Sequence</h4>
@@ -626,10 +1017,10 @@ function App() {
 
         <div style={{ position: 'relative' }}>
           {currentSequence.length === 0 && <div style={{ color: '#666' }}>No lines selected</div>}
-          {currentSequence.map((line, idx) => (
+              {currentSequence.map((line, idx) => (
             <div key={idx} style={{ border: "1px solid #f0f0f0", padding: 10, marginBottom: 10, background: '#fff' }}>
               <p style={{ margin: 0, marginBottom: 6 }}>Line {lines.indexOf(line) + 1}: {line.start.degree} → {line.end.degree}</p>
-              <NotationView notes={line.notes} highlightIndex={highlight.area === 'sequence' && highlight.lineIdx === idx ? highlight.noteIdx : -1} tripletStartIndex={line.tripletStartIndex ?? -1} />
+              <NotationView notes={line.notes} tags={line.tags ?? []} highlightIndex={highlight.area === 'sequence' && highlight.lineIdx === idx ? highlight.noteIdx : -1} tripletStartIndex={line.tripletStartIndex ?? -1} />
               <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
                 <button onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'sequence', lineIdx: idx, noteIdx }), line.tripletStartIndex ?? -1)}>
                   Play Line
@@ -648,10 +1039,12 @@ function App() {
         </div>
 
         {(() => {
-          // If there's no sequence yet, show all saved lines grouped by their start degree inside collapsible dropdowns
-          if (currentSequence.length === 0) {
+          // If there's no sequence yet, or Connect Anywhere is active, show all saved lines grouped by their start degree
+          if (currentSequence.length === 0 || connectAnywhere) {
             const groups = {};
             lines.forEach((line) => {
+              if (!isLibraryEnabled(line.libraryId)) return; // skip lines from disabled libraries
+              if (!allowDuplicates && currentSequence.includes(line)) return; // exclude already-selected lines when duplicates not allowed
               const key = line.start?.degree || 'unknown';
               if (!groups[key]) groups[key] = [];
               groups[key].push(line);
@@ -673,50 +1066,80 @@ function App() {
                       {groups[key].length === 0 ? (
                         <div style={{ color: '#666', padding: 8 }}>No lines</div>
                       ) : (
-                        groups[key].map((line, i) => {
-                          const globalIndex = lines.indexOf(line);
-                          return (
-                            <div key={i} style={{ border: "1px solid #eee", padding: 8, marginBottom: 8, borderRadius: 4 }}>
-                              <p style={{ margin: 0, marginBottom: 6 }}>Line {globalIndex + 1}: {line.start.degree} → {line.end.degree}</p>
+                        (() => {
+                          const funcBuckets = categorizeByFunction(groups[key]);
+                          const funcOrder = ['Major ii-v', 'Minor ii-v', 'Static Minor', 'Dominant 7', 'Altered Dominant', 'Phrygian Dominant', 'H/W Diminished', 'Tritone Sub', 'Other'];
+                          return funcOrder
+                            .filter((fKey) => funcBuckets[fKey] && funcBuckets[fKey].length > 0)
+                            .map((fKey) => (
+                              <div key={`${key}-${fKey}`} style={{ marginBottom: 8 }}>
+                                <h5 style={{ margin: '6px 0' }}>{fKey} ({funcBuckets[fKey].length})</h5>
+                                {funcBuckets[fKey].map((subLine, si) => {
+                                  const globalIndex = lines.indexOf(subLine);
+                                  return (
+                                    <div key={si} style={{ border: "1px solid #eee", padding: 8, marginBottom: 8, borderRadius: 4 }}>
+                                        <p style={{ margin: 0, marginBottom: 6 }}>Line {globalIndex + 1}: {subLine.start.degree} → {subLine.end.degree}
+                                          {currentSequence.includes(subLine) && (
+                                            <span style={{ marginLeft: 8, fontSize: 12, color: '#a00' }}>Duplicate in sequence</span>
+                                          )}
+                                        </p>
 
-                              {editingIndex === globalIndex ? (
-                                <div>
-                                  <textarea rows={3} style={{ width: '100%' }} value={editText} onChange={(e) => setEditText(e.target.value)} />
-                                  <div style={{ marginTop: 6 }}>
-                                    <label style={{ fontSize: 12 }}>Function tags (comma-separated):</label>
-                                    <input style={{ width: '100%', marginTop: 4 }} value={editTags} onChange={(e) => setEditTags(e.target.value)} />
-                                  </div>
-                                  <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
-                                    <button onClick={saveEditLine}>Save</button>
-                                    <button onClick={cancelEditLine}>Cancel</button>
-                                  </div>
-                                </div>
-                              ) : (
-                                <>
-                                  <NotationView notes={line.notes} highlightIndex={-1} tripletStartIndex={line.tripletStartIndex ?? -1} />
-                                  <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
-                                    <button onClick={() => selectLine(line)} style={{ backgroundColor: "#4CAF50", color: "white" }}>Select</button>
-                                    <button onClick={() => startEditLine(globalIndex)}>Edit</button>
-                                    <button onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), line.tripletStartIndex ?? -1)}>
-                                      Play Line
-                                    </button>
-                                    <button onClick={() => adjustLineOctave(globalIndex, -1)}>Octave -</button>
-                                    <button onClick={() => adjustLineOctave(globalIndex, +1)}>Octave +</button>
-                                    {line.notes && line.notes.length === 9 && (
-                                      <>
-                                        <button onClick={() => adjustLineTriplet(globalIndex, -1)} title="Move triplet back">Triplet ←</button>
-                                        <button onClick={() => adjustLineTriplet(globalIndex, +1)} title="Move triplet forward">Triplet →</button>
-                                      </>
-                                    )}
-                                  </div>
-                                  {line.tags && line.tags.length > 0 && (
-                                    <div style={{ marginTop: 6, fontSize: 12, color: '#444' }}>Tags: {line.tags.join(', ')}</div>
-                                  )}
-                                </>
-                              )}
-                            </div>
-                          );
-                        })
+                                      {editingIndex === globalIndex ? (
+                                        <div>
+                                          <textarea rows={3} style={{ width: '100%' }} value={editText} onChange={(e) => setEditText(e.target.value)} />
+                                          <div style={{ marginTop: 6 }}>
+                                            <label style={{ fontSize: 12 }}>Function</label>
+                                            <select style={{ width: '100%', marginTop: 4 }} value={editTags} onChange={(e) => setEditTags(e.target.value)}>
+                                              <option value="">Other</option>
+                                              <option value="major ii-v">Major ii-v</option>
+                                              <option value="minor ii-v">Minor ii-v</option>
+                                              <option value="static minor">Static Minor</option>
+                                              <option value="dominant 7">Dominant 7</option>
+                                              <option value="altered dominant">Altered Dominant</option>
+                                              <option value="phrygian dominant">Phrygian Dominant</option>
+                                              <option value="h/w diminished">H/W Diminished</option>
+                                              <option value="tritone sub">Tritone Sub</option>
+                                            </select>
+                                          </div>
+                                          <div style={{ marginTop: 6 }}>
+                                            <label style={{ fontSize: 12 }}>Comment / Notes</label>
+                                            <textarea rows={2} style={{ width: '100%', marginTop: 6 }} value={editComment} onChange={(e) => setEditComment(e.target.value)} />
+                                          </div>
+                                          <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
+                                            <button onClick={saveEditLine}>Save</button>
+                                            <button onClick={cancelEditLine}>Cancel</button>
+                                          </div>
+                                        </div>
+                                      ) : (
+                                        <>
+                                          <NotationView notes={subLine.notes} tags={subLine.tags ?? []} highlightIndex={-1} tripletStartIndex={subLine.tripletStartIndex ?? -1} />
+                                          <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
+                                            <button onClick={() => selectLine(subLine)} style={{ backgroundColor: "#4CAF50", color: "white" }}>Select</button>
+                                            <button onClick={() => startEditLine(globalIndex)}>Edit</button>
+                                            <button onClick={() => playLine(subLine.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), subLine.tripletStartIndex ?? -1)}>
+                                              Play Line
+                                            </button>
+                                            <button onClick={() => adjustLineOctave(globalIndex, -1)}>Octave -</button>
+                                            <button onClick={() => adjustLineOctave(globalIndex, +1)}>Octave +</button>
+                                            {subLine.notes && subLine.notes.length === 9 && (
+                                              <>
+                                                <button onClick={() => adjustLineTriplet(globalIndex, -1)} title="Move triplet back">Triplet ←</button>
+                                                <button onClick={() => adjustLineTriplet(globalIndex, +1)} title="Move triplet forward">Triplet →</button>
+                                              </>
+                                            )}
+                                          </div>
+                                          {/* tags shown only in edit UI */}
+                                            {subLine.comment && (
+                                              <div style={{ marginTop: 6, fontSize: 12, color: '#444' }}>Note: {subLine.comment}</div>
+                                            )}
+                                        </>
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            ));
+                        })()
                       )}
                     </Collapsible>
                   ))}
@@ -758,6 +1181,7 @@ function App() {
           }
 
           const buckets = {
+            tied: [],
             halfUp: [],
             halfDown: [],
             wholeUp: [],
@@ -767,9 +1191,15 @@ function App() {
           };
 
           lines.forEach((line) => {
-            if (currentSequence.includes(line)) return; // exclude already selected
+            if (!isLibraryEnabled(line.libraryId)) return; // skip lines from disabled libraries
+            if (!allowDuplicates && currentSequence.includes(line)) return; // exclude already selected unless duplicates allowed
             const startDeg = line.start?.degree;
             const startIdx = startDeg ? SCALE_ORDER.indexOf(startDeg) : -1;
+            if (startIdx === endIdx) {
+              buckets.tied.push(line);
+              return;
+            }
+
             if (startIdx === -1 || endIdx === -1) return;
 
             const chromDist = circularDistance(endIdx, startIdx);
@@ -800,6 +1230,7 @@ function App() {
           });
 
           const groups = [
+            { key: 'Tied (Same note)', items: buckets.tied },
             { key: 'Half step up', items: buckets.halfUp },
             { key: 'Half step down', items: buckets.halfDown },
             { key: 'Whole step up', items: buckets.wholeUp },
@@ -814,55 +1245,86 @@ function App() {
               <div style={{ maxHeight: 420, overflowY: 'auto', paddingRight: 8 }}>
                 {groups.map((g) => (
                   <Collapsible key={`${g.key}-${currentSequence.length}`} title={`${g.key} (${g.items.length})`} defaultOpen={false}>
-                    {g.items.length === 0 ? (
-                      <div style={{ color: '#666', padding: 8 }}>No lines</div>
-                    ) : (
-                      g.items.map((line, i) => {
-                        const globalIndex = lines.indexOf(line);
-                        return (
-                          <div key={i} style={{ border: "1px solid #eee", padding: 8, marginBottom: 8, borderRadius: 4 }}>
-                            <p style={{ margin: 0, marginBottom: 6 }}>Line {globalIndex + 1}: {line.start.degree} → {line.end.degree}</p>
+                        {g.items.length === 0 ? (
+                          <div style={{ color: '#666', padding: 8 }}>No lines</div>
+                        ) : (
+                          (() => {
+                            const funcBuckets = categorizeByFunction(g.items);
+                            const funcOrder = ['Major ii-v', 'Minor ii-v', 'Static Minor', 'Dominant 7', 'Altered Dominant', 'Phrygian Dominant', 'H/W Diminished', 'Tritone Sub', 'Other'];
+                            return funcOrder.map((fKey) => (
+                              <Collapsible key={`${g.key}-${fKey}-sub`} title={`${fKey} (${funcBuckets[fKey].length})`} defaultOpen={false}>
+                                {funcBuckets[fKey].length === 0 ? (
+                                  <div style={{ color: '#666', padding: 8 }}>No lines</div>
+                                ) : (
+                                  funcBuckets[fKey].map((subLine, si) => {
+                                    const globalIndex = lines.indexOf(subLine);
+                                    return (
+                                      <div key={si} style={{ border: "1px solid #eee", padding: 8, marginBottom: 8, borderRadius: 4 }}>
+                                        <p style={{ margin: 0, marginBottom: 6 }}>Line {globalIndex + 1}: {subLine.start.degree} → {subLine.end.degree}
+                                          {currentSequence.includes(subLine) && (
+                                            <span style={{ marginLeft: 8, fontSize: 12, color: '#a00' }}>Duplicate in sequence</span>
+                                          )}
+                                        </p>
 
-                            {editingIndex === globalIndex ? (
-                              <div>
-                                <textarea rows={3} style={{ width: '100%' }} value={editText} onChange={(e) => setEditText(e.target.value)} />
-                                <div style={{ marginTop: 6 }}>
-                                  <label style={{ fontSize: 12 }}>Function tags (comma-separated):</label>
-                                  <input style={{ width: '100%', marginTop: 4 }} value={editTags} onChange={(e) => setEditTags(e.target.value)} />
-                                </div>
-                                <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
-                                  <button onClick={saveEditLine}>Save</button>
-                                  <button onClick={cancelEditLine}>Cancel</button>
-                                </div>
-                              </div>
-                            ) : (
-                              <>
-                                <NotationView notes={line.notes} highlightIndex={-1} tripletStartIndex={line.tripletStartIndex ?? -1} />
-                                <div style={{ marginTop: 6, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                                  <button onClick={() => selectLine(line)}>Select</button>
-                                  <button onClick={() => startEditLine(globalIndex)}>Edit</button>
-                                    <button onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), line.tripletStartIndex ?? -1)}>
-                                    Play Line
-                                  </button>
-                                  <button onClick={() => adjustLineOctave(globalIndex, -1)}>Octave -</button>
-                                  <button onClick={() => adjustLineOctave(globalIndex, +1)}>Octave +</button>
-                                  {line.notes && line.notes.length === 9 && (
-                                    <>
-                                      <button onClick={() => adjustLineTriplet(globalIndex, -1)} title="Move triplet back">Triplet ←</button>
-                                      <button onClick={() => adjustLineTriplet(globalIndex, +1)} title="Move triplet forward">Triplet →</button>
-                                    </>
-                                  )}
-                                  <button onClick={() => removeLine(globalIndex)} style={{ marginLeft: 'auto' }}>Remove</button>
-                                </div>
-                                {line.tags && line.tags.length > 0 && (
-                                  <div style={{ marginTop: 6, fontSize: 12, color: '#444' }}>Tags: {line.tags.join(', ')}</div>
+                                        {editingIndex === globalIndex ? (
+                                          <div>
+                                            <textarea rows={3} style={{ width: '100%' }} value={editText} onChange={(e) => setEditText(e.target.value)} />
+                                            <div style={{ marginTop: 6 }}>
+                                                <label style={{ fontSize: 12 }}>Function</label>
+                                                <select style={{ width: '100%', marginTop: 4 }} value={editTags} onChange={(e) => setEditTags(e.target.value)}>
+                                                  <option value="">Other</option>
+                                                  <option value="major ii-v">Major ii-v</option>
+                                                  <option value="minor ii-v">Minor ii-v</option>
+                                                  <option value="static minor">Static Minor</option>
+                                                  <option value="dominant 7">Dominant 7</option>
+                                                  <option value="altered dominant">Altered Dominant</option>
+                                                  <option value="phrygian dominant">Phrygian Dominant</option>
+                                                  <option value="h/w diminished">H/W Diminished</option>
+                                                  <option value="tritone sub">Tritone Sub</option>
+                                                </select>
+                                              </div>
+                                              <div style={{ marginTop: 6 }}>
+                                                <label style={{ fontSize: 12 }}>Comment / Notes</label>
+                                                <textarea rows={2} style={{ width: '100%', marginTop: 6 }} value={editComment} onChange={(e) => setEditComment(e.target.value)} />
+                                              </div>
+                                            <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
+                                              <button onClick={saveEditLine}>Save</button>
+                                              <button onClick={cancelEditLine}>Cancel</button>
+                                            </div>
+                                          </div>
+                                        ) : (
+                                          <>
+                                            <NotationView notes={subLine.notes} tags={subLine.tags ?? []} highlightIndex={-1} tripletStartIndex={subLine.tripletStartIndex ?? -1} />
+                                            <div style={{ marginTop: 6, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                                              <button onClick={() => selectLine(subLine)}>Select</button>
+                                              <button onClick={() => startEditLine(globalIndex)}>Edit</button>
+                                              <button onClick={() => playLine(subLine.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), subLine.tripletStartIndex ?? -1)}>
+                                                Play Line
+                                              </button>
+                                              <button onClick={() => adjustLineOctave(globalIndex, -1)}>Octave -</button>
+                                              <button onClick={() => adjustLineOctave(globalIndex, +1)}>Octave +</button>
+                                              {subLine.notes && subLine.notes.length === 9 && (
+                                                <>
+                                                  <button onClick={() => adjustLineTriplet(globalIndex, -1)} title="Move triplet back">Triplet ←</button>
+                                                  <button onClick={() => adjustLineTriplet(globalIndex, +1)} title="Move triplet forward">Triplet →</button>
+                                                </>
+                                              )}
+                                              <button onClick={() => removeLine(globalIndex)} style={{ marginLeft: 'auto' }}>Remove</button>
+                                            </div>
+                                            {/* tags shown only in edit UI */}
+                                            {subLine.comment && (
+                                              <div style={{ marginTop: 6, fontSize: 12, color: '#444' }}>Note: {subLine.comment}</div>
+                                            )}
+                                          </>
+                                        )}
+                                      </div>
+                                    );
+                                  })
                                 )}
-                              </>
-                            )}
-                          </div>
-                        );
-                      })
-                    )}
+                              </Collapsible>
+                            ));
+                          })()
+                        )}
                   </Collapsible>
                 ))}
               </div>
@@ -905,6 +1367,7 @@ function App() {
         {(() => {
           const groups = {};
           lines.forEach((line) => {
+            if (!isLibraryEnabled(line.libraryId)) return; // skip lines from disabled libraries
             const key = line.start?.degree || "unknown";
             if (!groups[key]) groups[key] = [];
             groups[key].push(line);
@@ -917,52 +1380,78 @@ function App() {
 
           return orderedKeys.map((key) => (
             <Collapsible key={key} title={`${key}`} defaultOpen={false} right={<span style={{ color: '#666', fontSize: 12 }}>({groups[key].length})</span>}>
-              {groups[key].map((line, idx) => {
-                const globalIndex = lines.indexOf(line);
-                return (
-                  <div key={idx} style={{ border: "1px solid #eee", padding: 10, marginBottom: 8 }}>
-                    <p style={{ margin: 0, marginBottom: 6 }}>Line {globalIndex + 1}: {line.start.degree} → {line.end.degree}</p>
+                {(() => {
+                const funcBuckets = categorizeByFunction(groups[key]);
+                const funcOrder = ['Major ii-v', 'Minor ii-v', 'Static Minor', 'Dominant 7', 'Altered Dominant', 'Phrygian Dominant', 'H/W Diminished', 'Tritone Sub', 'Other'];
+                return funcOrder
+                  .filter((fKey) => funcBuckets[fKey] && funcBuckets[fKey].length > 0)
+                  .map((fKey) => (
+                    <div key={`${key}-all-${fKey}`} style={{ marginBottom: 10 }}>
+                      <h5 style={{ margin: '6px 0' }}>{fKey} ({funcBuckets[fKey].length})</h5>
+                      {funcBuckets[fKey].map((subLine, si) => {
+                        const globalIndex = lines.indexOf(subLine);
+                        return (
+                          <div key={si} style={{ border: "1px solid #eee", padding: 10, marginBottom: 8 }}>
+                            <p style={{ margin: 0, marginBottom: 6 }}>Line {globalIndex + 1}: {subLine.start.degree} → {subLine.end.degree}</p>
 
-                    {editingIndex === globalIndex ? (
-                      <div>
-                        <textarea rows={3} style={{ width: '100%' }} value={editText} onChange={(e) => setEditText(e.target.value)} />
-                        <div style={{ marginTop: 6 }}>
-                          <label style={{ fontSize: 12 }}>Function tags (comma-separated):</label>
-                          <input style={{ width: '100%', marginTop: 4 }} value={editTags} onChange={(e) => setEditTags(e.target.value)} />
-                        </div>
-                        <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
-                          <button onClick={saveEditLine}>Save</button>
-                          <button onClick={cancelEditLine}>Cancel</button>
-                        </div>
-                      </div>
-                    ) : (
-                      <>
-                        <NotationView notes={line.notes} highlightIndex={-1} tripletStartIndex={line.tripletStartIndex ?? -1} />
-                        <div style={{ marginTop: 8, display: 'flex', gap: 8, alignItems: 'center' }}>
-                          <button onClick={() => startEditLine(globalIndex)}>Edit</button>
-                          <button onClick={() => playLine(line.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), line.tripletStartIndex ?? -1)}>
-                            Play Line
-                          </button>
-                          <button onClick={() => adjustLineOctave(globalIndex, -1)}>Octave -</button>
-                          <button onClick={() => adjustLineOctave(globalIndex, +1)}>Octave +</button>
-                          {line.notes && line.notes.length === 9 && (
-                            <>
-                              <button onClick={() => adjustLineTriplet(globalIndex, -1)} title="Move triplet back">Triplet ←</button>
-                              <button onClick={() => adjustLineTriplet(globalIndex, +1)} title="Move triplet forward">Triplet →</button>
-                            </>
-                          )}
-                          <button onClick={() => removeLine(globalIndex)} style={{ marginLeft: 'auto' }}>Delete Line</button>
-                        </div>
-                        {line.tags && line.tags.length > 0 && (
-                          <div style={{ marginTop: 6, fontSize: 12, color: '#444' }}>Tags: {line.tags.join(', ')}</div>
-                        )}
-                      </>
-                    )}
-                  </div>
-                );
-              })}
+                            {editingIndex === globalIndex ? (
+                              <div>
+                                <textarea rows={3} style={{ width: '100%' }} value={editText} onChange={(e) => setEditText(e.target.value)} />
+                                <div style={{ marginTop: 6 }}>
+                                  <label style={{ fontSize: 12 }}>Function</label>
+                                  <select style={{ width: '100%', marginTop: 4 }} value={editTags} onChange={(e) => setEditTags(e.target.value)}>
+                                    <option value="">Other</option>
+                                    <option value="major ii-v">Major ii-v</option>
+                                    <option value="minor ii-v">Minor ii-v</option>
+                                    <option value="static minor">Static Minor</option>
+                                    <option value="dominant 7">Dominant 7</option>
+                                    <option value="altered dominant">Altered Dominant</option>
+                                    <option value="phrygian dominant">Phrygian Dominant</option>
+                                    <option value="h/w diminished">H/W Diminished</option>
+                                    <option value="tritone sub">Tritone Sub</option>
+                                  </select>
+                                </div>
+                                <div style={{ marginTop: 6 }}>
+                                  <label style={{ fontSize: 12 }}>Comment / Notes</label>
+                                  <textarea rows={2} style={{ width: '100%', marginTop: 6 }} value={editComment} onChange={(e) => setEditComment(e.target.value)} />
+                                </div>
+                                <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
+                                  <button onClick={saveEditLine}>Save</button>
+                                  <button onClick={cancelEditLine}>Cancel</button>
+                                </div>
+                              </div>
+                            ) : (
+                              <>
+                                <NotationView notes={subLine.notes} tags={subLine.tags ?? []} highlightIndex={-1} tripletStartIndex={subLine.tripletStartIndex ?? -1} />
+                                <div style={{ marginTop: 8, display: 'flex', gap: 8, alignItems: 'center' }}>
+                                  <button onClick={() => startEditLine(globalIndex)}>Edit</button>
+                                  <button onClick={() => playLine(subLine.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), subLine.tripletStartIndex ?? -1)}>
+                                    Play Line
+                                  </button>
+                                  <button onClick={() => adjustLineOctave(globalIndex, -1)}>Octave -</button>
+                                  <button onClick={() => adjustLineOctave(globalIndex, +1)}>Octave +</button>
+                                  {subLine.notes && subLine.notes.length === 9 && (
+                                    <>
+                                      <button onClick={() => adjustLineTriplet(globalIndex, -1)} title="Move triplet back">Triplet ←</button>
+                                      <button onClick={() => adjustLineTriplet(globalIndex, +1)} title="Move triplet forward">Triplet →</button>
+                                    </>
+                                  )}
+                                  <button onClick={() => removeLine(globalIndex)} style={{ marginLeft: 'auto' }}>Delete Line</button>
+                                </div>
+                                {/* tags shown only in edit UI */}
+                                {subLine.comment && (
+                                  <div style={{ marginTop: 6, fontSize: 12, color: '#444' }}>Note: {subLine.comment}</div>
+                                )}
+                              </>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ));
+              })()}
             </Collapsible>
-          ));3
+          ));
         })()}
       </Collapsible>
     {/* Footer */}
