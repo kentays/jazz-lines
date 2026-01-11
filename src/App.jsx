@@ -914,7 +914,6 @@ function App() {
         <LineInput onLineCreated={addLine} />
         <div style={{ marginTop: 8, display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
           <button onClick={clearLines}>Clear All Lines</button>
-          <button onClick={exportJSON}>Export JSON</button>
           <button onClick={loadDefaultLines} style={{ backgroundColor: "#4CAF50", color: "white" }}>Load Default Libraries</button>
           <input type="file" accept=".json" onChange={importJSON} />
         </div>

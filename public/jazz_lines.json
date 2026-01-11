@@ -73,7 +73,9 @@
       "midi": 76,
       "degree": "3"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -149,7 +151,9 @@
       "midi": 79,
       "degree": "5"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -225,7 +229,9 @@
       "midi": 71,
       "degree": "7"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -301,7 +307,9 @@
       "midi": 62,
       "degree": "2"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -384,7 +392,9 @@
       "midi": 62,
       "degree": "2"
     },
-    "length": 9
+    "length": 9,
+    "tripletStartIndex": 6,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -460,7 +470,9 @@
       "midi": 56,
       "degree": "b6"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -536,7 +548,9 @@
       "midi": 65,
       "degree": "4"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -612,7 +626,9 @@
       "midi": 69,
       "degree": "6"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -688,7 +704,9 @@
       "midi": 63,
       "degree": "b3"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -764,7 +782,9 @@
       "midi": 63,
       "degree": "b3"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -840,7 +860,9 @@
       "midi": 67,
       "degree": "5"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -916,7 +938,9 @@
       "midi": 66,
       "degree": "b5"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -992,7 +1016,9 @@
       "midi": 65,
       "degree": "4"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -1071,7 +1097,9 @@
     "length": 8,
     "tags": [
       "ii-v minor"
-    ]
+    ],
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -1147,7 +1175,9 @@
       "midi": 62,
       "degree": "2"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -1226,7 +1256,9 @@
     "length": 8,
     "tags": [
       "ii-v minor"
-    ]
+    ],
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -1305,7 +1337,9 @@
     "length": 8,
     "tags": [
       "ii-v major"
-    ]
+    ],
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -1384,7 +1418,9 @@
     "length": 8,
     "tags": [
       "ii-v minor"
-    ]
+    ],
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -1463,7 +1499,9 @@
     "length": 8,
     "tags": [
       "V"
-    ]
+    ],
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -1539,7 +1577,9 @@
       "midi": 79,
       "degree": "5"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -1615,7 +1655,9 @@
       "midi": 71,
       "degree": "7"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -1691,7 +1733,9 @@
       "midi": 62,
       "degree": "2"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -1770,7 +1814,9 @@
     "length": 8,
     "tags": [
       "ii-V"
-    ]
+    ],
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -1839,7 +1885,9 @@
       "midi": 65,
       "degree": "4"
     },
-    "length": 7
+    "length": 7,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -1915,7 +1963,9 @@
       "midi": 79,
       "degree": "5"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -1991,7 +2041,9 @@
       "midi": 81,
       "degree": "6"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -2067,7 +2119,9 @@
       "midi": 83,
       "degree": "7"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -2150,7 +2204,9 @@
       "midi": 76,
       "degree": "3"
     },
-    "length": 9
+    "length": 9,
+    "tripletStartIndex": 6,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -2226,7 +2282,9 @@
       "midi": 59,
       "degree": "7"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -2302,7 +2360,9 @@
       "midi": 65,
       "degree": "4"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -2378,7 +2438,9 @@
       "midi": 65,
       "degree": "4"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -2454,7 +2516,9 @@
       "midi": 68,
       "degree": "b6"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -2530,7 +2594,9 @@
       "midi": 65,
       "degree": "4"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -2606,7 +2672,9 @@
       "midi": 64,
       "degree": "3"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -2682,7 +2750,9 @@
       "midi": 65,
       "degree": "4"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -2758,7 +2828,9 @@
       "midi": 66,
       "degree": "b5"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -2834,7 +2906,9 @@
       "midi": 64,
       "degree": "3"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -2910,7 +2984,9 @@
       "midi": 65,
       "degree": "4"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -2986,7 +3062,9 @@
       "midi": 68,
       "degree": "b6"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -3062,7 +3140,9 @@
       "midi": 80,
       "degree": "b6"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -3138,7 +3218,9 @@
       "midi": 67,
       "degree": "5"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -3214,7 +3296,9 @@
       "midi": 65,
       "degree": "4"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -3290,7 +3374,9 @@
       "midi": 68,
       "degree": "b6"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -3373,7 +3459,9 @@
       "midi": 76,
       "degree": "3"
     },
-    "length": 9
+    "length": 9,
+    "tripletStartIndex": 6,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -3449,7 +3537,9 @@
       "midi": 68,
       "degree": "b6"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -3532,7 +3622,9 @@
       "midi": 76,
       "degree": "3"
     },
-    "length": 9
+    "length": 9,
+    "tripletStartIndex": 6,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -3615,7 +3707,9 @@
       "midi": 75,
       "degree": "b3"
     },
-    "length": 9
+    "length": 9,
+    "tripletStartIndex": 6,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -3691,7 +3785,9 @@
       "midi": 80,
       "degree": "b6"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -3767,7 +3863,9 @@
       "midi": 75,
       "degree": "b3"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -3843,7 +3941,9 @@
       "midi": 74,
       "degree": "2"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -3905,7 +4005,9 @@
       "midi": 80,
       "degree": "b6"
     },
-    "length": 6
+    "length": 6,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -3981,7 +4083,9 @@
       "midi": 77,
       "degree": "4"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -4057,7 +4161,9 @@
       "midi": 65,
       "degree": "4"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -4133,7 +4239,9 @@
       "midi": 68,
       "degree": "b6"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -4209,7 +4317,9 @@
       "midi": 62,
       "degree": "2"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -4285,7 +4395,9 @@
       "midi": 82,
       "degree": "b7"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -4361,7 +4473,9 @@
       "midi": 62,
       "degree": "2"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -4437,7 +4551,9 @@
       "midi": 76,
       "degree": "3"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -4513,7 +4629,9 @@
       "midi": 82,
       "degree": "b7"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -4589,7 +4707,9 @@
       "midi": 76,
       "degree": "3"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -4665,7 +4785,9 @@
       "midi": 82,
       "degree": "b7"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -4741,7 +4863,9 @@
       "midi": 75,
       "degree": "b3"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -4817,7 +4941,9 @@
       "midi": 71,
       "degree": "7"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -4893,7 +5019,9 @@
       "midi": 70,
       "degree": "b7"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -4969,7 +5097,9 @@
       "midi": 62,
       "degree": "2"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -5045,7 +5175,9 @@
       "midi": 65,
       "degree": "4"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
   },
   {
     "notes": [
@@ -5121,6 +5253,973 @@
       "midi": 74,
       "degree": "2"
     },
-    "length": 8
+    "length": 8,
+    "tripletStartIndex": -1,
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      }
+    ],
+    "intervals": [
+      3,
+      -2,
+      -7,
+      3,
+      4,
+      5,
+      -2
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 68,
+      "degree": "b6"
+    },
+    "end": {
+      "letter": "C",
+      "accidental": "",
+      "octave": 5,
+      "midi": 72,
+      "degree": "1"
+    },
+    "length": 8,
+    "tripletStartIndex": -1,
+    "tags": [
+      "major ii-v"
+    ],
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      }
+    ],
+    "intervals": [
+      2,
+      -3,
+      -2,
+      -3,
+      -4,
+      7,
+      -3
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 5,
+      "midi": 77,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "length": 8,
+    "tripletStartIndex": -1,
+    "tags": [
+      "major ii-v"
+    ],
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 82
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      }
+    ],
+    "intervals": [
+      5,
+      -3,
+      -2,
+      -2,
+      -4,
+      -3,
+      -3
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 5,
+      "midi": 77,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 4,
+      "midi": 65,
+      "degree": "4"
+    },
+    "length": 8,
+    "tripletStartIndex": -1,
+    "tags": [
+      "major ii-v"
+    ],
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 4,
+        "midi": 64
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      }
+    ],
+    "intervals": [
+      1,
+      4,
+      3,
+      4,
+      -1,
+      -1,
+      5
+    ],
+    "start": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 4,
+      "midi": 64,
+      "degree": "3"
+    },
+    "end": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 5,
+      "midi": 79,
+      "degree": "5"
+    },
+    "length": 8,
+    "tripletStartIndex": -1,
+    "tags": [
+      "major ii-v"
+    ],
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 5,
+        "midi": 81
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 80
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 78
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "D",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 73
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      }
+    ],
+    "intervals": [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -3,
+      -5
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "",
+      "octave": 5,
+      "midi": 81,
+      "degree": "6"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 68,
+      "degree": "b6"
+    },
+    "length": 8,
+    "tripletStartIndex": -1,
+    "tags": [
+      "major ii-v"
+    ],
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      }
+    ],
+    "intervals": [
+      -2,
+      -2,
+      -4,
+      -3,
+      -3,
+      2,
+      4
+    ],
+    "start": {
+      "letter": "G",
+      "accidental": "",
+      "octave": 5,
+      "midi": 79,
+      "degree": "5"
+    },
+    "end": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "length": 8,
+    "tripletStartIndex": -1,
+    "tags": [
+      "major ii-v"
+    ],
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 5,
+        "midi": 81
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      }
+    ],
+    "intervals": [
+      3,
+      4,
+      3,
+      2,
+      -2,
+      -3,
+      -2
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "",
+      "octave": 4,
+      "midi": 69,
+      "degree": "6"
+    },
+    "end": {
+      "letter": "D",
+      "accidental": "",
+      "octave": 5,
+      "midi": 74,
+      "degree": "2"
+    },
+    "length": 8,
+    "tripletStartIndex": -1,
+    "tags": [
+      "major ii-v"
+    ],
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      }
+    ],
+    "intervals": [
+      -1,
+      -5,
+      -4,
+      2,
+      5,
+      -3,
+      -2
+    ],
+    "start": {
+      "letter": "F",
+      "accidental": "",
+      "octave": 5,
+      "midi": 77,
+      "degree": "4"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "",
+      "octave": 4,
+      "midi": 69,
+      "degree": "6"
+    },
+    "length": 8,
+    "tripletStartIndex": -1,
+    "tags": [
+      "major ii-v"
+    ],
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 3,
+        "midi": 57
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 4,
+        "midi": 64
+      }
+    ],
+    "intervals": [
+      5,
+      5,
+      5,
+      -3,
+      -2,
+      -3
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "",
+      "octave": 3,
+      "midi": 57,
+      "degree": "6"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 4,
+      "midi": 64,
+      "degree": "3"
+    },
+    "length": 7,
+    "tripletStartIndex": -1,
+    "tags": [
+      "major ii-v"
+    ],
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "B",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 70
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 5,
+        "midi": 74
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      }
+    ],
+    "intervals": [
+      5,
+      -8,
+      3,
+      4,
+      -3,
+      1,
+      4
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 70,
+      "degree": "b7"
+    },
+    "end": {
+      "letter": "E",
+      "accidental": "",
+      "octave": 5,
+      "midi": 76,
+      "degree": "3"
+    },
+    "length": 8,
+    "tripletStartIndex": -1,
+    "tags": [
+      "major ii-v"
+    ],
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "b",
+        "octave": 4,
+        "midi": 68
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "E",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 75
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 78
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "G",
+        "accidental": "b",
+        "octave": 5,
+        "midi": 78
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 5,
+        "midi": 77
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 5,
+        "midi": 81
+      }
+    ],
+    "intervals": [
+      3,
+      4,
+      3,
+      1,
+      -1,
+      -1,
+      4
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "b",
+      "octave": 4,
+      "midi": 68,
+      "degree": "b6"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "",
+      "octave": 5,
+      "midi": 81,
+      "degree": "6"
+    },
+    "length": 8,
+    "tripletStartIndex": -1,
+    "tags": [
+      "major ii-v"
+    ],
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 5,
+        "midi": 72
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 5,
+        "midi": 81
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 5,
+        "midi": 79
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 5,
+        "midi": 76
+      },
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      }
+    ],
+    "intervals": [
+      3,
+      4,
+      3,
+      2,
+      -2,
+      -3,
+      -5
+    ],
+    "start": {
+      "letter": "A",
+      "accidental": "",
+      "octave": 4,
+      "midi": 69,
+      "degree": "6"
+    },
+    "end": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "length": 8,
+    "tripletStartIndex": -1,
+    "tags": [
+      "major ii-v"
+    ],
+    "libraryId": "jazz_lines"
   }
 ]
