@@ -213,6 +213,19 @@ export default function NotationView({ notes, tags = [], highlightIndex = -1, tr
     if (tuplet) {
       tuplet.setContext(context).draw();
     }
+    
+      // Make the generated SVG responsive by setting a viewBox and allowing the SVG to scale to container width.
+      try {
+        const svg = containerRef.current.querySelector('svg');
+        if (svg) {
+          svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+          svg.style.width = '100%';
+          svg.style.height = 'auto';
+          svg.setAttribute('preserveAspectRatio', 'xMinYMid meet');
+        }
+      } catch (e) {
+        // ignore
+      }
   }, [notes, tags, highlightIndex, tripletStartIndex]);
 
   return <div ref={containerRef} />;

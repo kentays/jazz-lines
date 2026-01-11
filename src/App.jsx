@@ -62,76 +62,65 @@ function App() {
     );
   });
 
-  // Load default data on first visit
-  useEffect(() => {
-    const hasLoaded = localStorage.getItem("defaultDataLoaded");
-    if (!hasLoaded && lines.length === 0 && savedSequences.length === 0) {
-      const DEFAULTS = [
-        { path: `${BASE}jazz_lines.json`, id: "jazz_lines", name: "Jazz Lines" },
-        { path: `${BASE}hexatonic_lines.json`, id: "hexatonic_lines", name: "Hexatonic Lines" }
-      ];
-
-      Promise.allSettled(DEFAULTS.map(d => fetch(d.path).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })))
-        .then((results) => {
-          const newLibs = [];
-          const addedLines = [];
-          results.forEach((res, i) => {
-            const def = DEFAULTS[i];
-            if (res.status === 'fulfilled' && Array.isArray(res.value)) {
-              const normalized = normalizeLinesWithTriplet(res.value).map((ln) => ({ ...(ln || {}), libraryId: def.id }));
-              newLibs.push({ id: def.id, name: def.name, enabled: true, editable: false });
-              addedLines.push(...normalized);
-            }
-          });
-
-          if (addedLines.length > 0) {
-            const updatedLines = [...lines, ...addedLines];
-            const updatedLibs = [...libraries, ...newLibs];
-            setLines(updatedLines);
-            setLibraries(updatedLibs);
-            try { localStorage.setItem('jazzLines', JSON.stringify(updatedLines)); } catch (e) {}
-            try { localStorage.setItem('libraries', JSON.stringify(updatedLibs)); } catch (e) {}
-          }
-            // also try loading saved sequences if present
-            fetch(`${BASE}saved_sequences.json`)
-            .then((res) => { if (!res.ok) throw new Error(res.status); return res.json(); })
-            .then((sequencesData) => {
-              if (Array.isArray(sequencesData)) {
-                const normalizedSequences = sequencesData.map((seq) => Array.isArray(seq) ? normalizeLinesWithTriplet(seq) : seq);
-                setSavedSequences(normalizedSequences);
-                localStorage.setItem('savedSequences', JSON.stringify(normalizedSequences));
-              }
-              localStorage.setItem('defaultDataLoaded', 'true');
-            })
-            .catch(() => { localStorage.setItem('defaultDataLoaded', 'true'); });
-        })
-        .catch((err) => console.warn('Failed to load default library files:', err));
-    }
-  }, []);
+  // UI state: highlighting and edit buffers
+  const [highlight, setHighlight] = useState({ area: null, lineIdx: -1, noteIdx: -1 });
   const [editingIndex, setEditingIndex] = useState(null);
   const [editText, setEditText] = useState("");
   const [editTags, setEditTags] = useState("");
   const [editComment, setEditComment] = useState("");
-  // highlight: { area: 'available'|'sequence'|null, lineIdx: number, noteIdx: number }
-  const [highlight, setHighlight] = useState({ area: null, lineIdx: -1, noteIdx: -1 });
+
+  // Toggles: persist to localStorage
   const [connectAnywhere, setConnectAnywhere] = useState(() => {
-    try {
-      return localStorage.getItem('connectAnywhere') === 'true';
-    } catch (e) {
-      return false;
-    }
+    try { return localStorage.getItem('connectAnywhere') === 'true'; } catch (e) { return false; }
   });
+
+  const [allowDuplicates, setAllowDuplicates] = useState(() => {
+    try { return localStorage.getItem('allowDuplicates') === 'true'; } catch (e) { return false; }
+  });
+
   useEffect(() => {
     try { localStorage.setItem('connectAnywhere', connectAnywhere ? 'true' : 'false'); } catch (e) {}
   }, [connectAnywhere]);
-  const [allowDuplicates, setAllowDuplicates] = useState(() => {
-    try {
-      const saved = localStorage.getItem('allowDuplicates');
-      return saved === 'true';
-    } catch (e) {
-      return false;
+
+  // Temporary preview overrides for available lines in Sequence Explorer (non-persistent)
+  const [previewOverrides, setPreviewOverrides] = useState({});
+
+  const adjustAvailableOctave = (globalIndex, delta) => {
+    if (globalIndex < 0 || globalIndex >= lines.length) return;
+    // Use current preview as the base if present so adjustments accumulate,
+    // otherwise fall back to the stored line.
+    const base = previewOverrides[globalIndex] || lines[globalIndex];
+    if (!base || !base.notes) return;
+
+    const newNotes = base.notes.map((n) => {
+      const accidentalForParser = n.accidental === 'b' ? 'B' : (n.accidental === '#' ? '#' : '');
+      const noteStr = `${n.letter}${accidentalForParser}${n.octave + delta}`;
+      try {
+        return parseNote(noteStr);
+      } catch (e) {
+        return { ...n };
+      }
+    });
+
+    const newLine = buildJazzLine(newNotes, base.tripletStartIndex);
+    // preserve non-note metadata
+    if (base) {
+      ['libraryId', 'tags', 'comment', 'start', 'end'].forEach(k => { if (base[k] !== undefined) newLine[k] = base[k]; });
     }
-  });
+
+    setPreviewOverrides(prev => ({ ...prev, [globalIndex]: newLine }));
+  };
+
+  const clearPreviewFor = (globalIndex) => {
+    setPreviewOverrides(prev => {
+      const copy = { ...prev };
+      delete copy[globalIndex];
+      return copy;
+    });
+  };
+
+  // Load default data on first visit
+  
 
   useEffect(() => {
     try {
@@ -190,6 +179,8 @@ function App() {
   };
 
   const clearLines = () => {
+    const ok = window.confirm("Clear ALL saved lines? This will remove them permanently.");
+    if (!ok) return;
     setLines([]);
     setCurrentSequence([]);
     setHighlight({ area: null, lineIdx: -1, noteIdx: -1 });
@@ -285,6 +276,16 @@ function App() {
     return uniqueId;
   };
 
+  const updateLineLibrary = (globalIndex, newLibraryId) => {
+    if (globalIndex < 0 || globalIndex >= lines.length) return;
+    const updatedLines = [...lines];
+    const line = { ...(updatedLines[globalIndex] || {}) };
+    line.libraryId = newLibraryId === 'user' ? 'user' : newLibraryId;
+    updatedLines[globalIndex] = line;
+    setLines(updatedLines);
+    try { localStorage.setItem('jazzLines', JSON.stringify(updatedLines)); } catch (e) {}
+  };
+
   const deleteLibrary = (id) => {
     const lib = libraries.find(l => l.id === id);
     if (!lib) return;
@@ -327,6 +328,8 @@ function App() {
   const selectLine = (line) => {
     const newSequence = [...currentSequence, line];
     setCurrentSequence(newSequence);
+    // clear any temporary previews after selection to avoid stale overrides
+    setPreviewOverrides({});
   }; 
 
   const clearSequence = () => {
@@ -420,7 +423,7 @@ function App() {
     const root = ReactDOM.createRoot(printContainer);
     const components = currentSequence.map((line, idx) => (
       <div key={idx} style={{ marginBottom: '30px', pageBreakInside: 'avoid' }}>
-        <NotationView notes={line.notes} tags={line.tags ?? []} highlightIndex={-1} tripletStartIndex={line.tripletStartIndex ?? -1} />
+              <NotationView notes={line.notes} tags={line.tags ?? []} highlightIndex={highlight.area === 'available' && highlight.lineIdx === lines.indexOf(line) ? highlight.noteIdx : -1} tripletStartIndex={line.tripletStartIndex ?? -1} />
       </div>
     ));
     root.render(<>{components}</>);
@@ -433,7 +436,8 @@ function App() {
       styleEl.textContent = `
         @media print {
           body > * { display: none !important; }
-          #print-sequence-temp { display: block !important; position: static !important; }
+          #print-sequence-temp { display: block !important; position: static !important; max-height: none !important; overflow: visible !important; width: 100% !important; }
+          #print-sequence-temp > div { page-break-inside: avoid; }
         }
       `;
       document.head.appendChild(styleEl);
@@ -640,6 +644,14 @@ function App() {
 
     // Rebuild line metadata, preserving triplet position
     const updatedLine = buildJazzLine(newNotes, lines[globalIndex].tripletStartIndex);
+
+    // Preserve original metadata (library assignment, comment, tags, start/end, and any other fields)
+    if (oldLine) {
+      if (typeof oldLine.libraryId !== 'undefined') updatedLine.libraryId = oldLine.libraryId;
+      if (typeof oldLine.tripletStartIndex !== 'undefined') updatedLine.tripletStartIndex = oldLine.tripletStartIndex;
+      const preservedKeys = Object.keys(oldLine).filter(k => !(k in updatedLine));
+      preservedKeys.forEach(k => { updatedLine[k] = oldLine[k]; });
+    }
 
     // Update lines array
     const updatedLines = [...lines];
@@ -1060,7 +1072,7 @@ function App() {
             return (
               <div>
                 <h4 style={{ marginTop: 6 }}>Available Lines <span style={{ marginLeft: 8, fontSize: 12, color: '#666' }}>({total})</span></h4>
-                <div style={{ maxHeight: 420, overflowY: 'auto', paddingRight: 8 }}>
+                <div style={{ maxHeight: '60vh', overflowY: 'auto', paddingRight: 8 }}>
                   {orderedKeys.map((key) => (
                     <Collapsible key={`${key}-${currentSequence.length}`} title={`${key} (${groups[key].length})`} defaultOpen={false}>
                       {groups[key].length === 0 ? (
@@ -1112,15 +1124,15 @@ function App() {
                                         </div>
                                       ) : (
                                         <>
-                                          <NotationView notes={subLine.notes} tags={subLine.tags ?? []} highlightIndex={-1} tripletStartIndex={subLine.tripletStartIndex ?? -1} />
+                                          <NotationView notes={(previewOverrides[globalIndex] || subLine).notes} tags={(previewOverrides[globalIndex] || subLine).tags ?? []} highlightIndex={highlight.area === 'available' && highlight.lineIdx === globalIndex ? highlight.noteIdx : -1} tripletStartIndex={(previewOverrides[globalIndex] || subLine).tripletStartIndex ?? -1} />
                                           <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
-                                            <button onClick={() => selectLine(subLine)} style={{ backgroundColor: "#4CAF50", color: "white" }}>Select</button>
+                                            <button onClick={() => selectLine(previewOverrides[globalIndex] || subLine)} style={{ backgroundColor: "#4CAF50", color: "white" }}>Select</button>
                                             <button onClick={() => startEditLine(globalIndex)}>Edit</button>
-                                            <button onClick={() => playLine(subLine.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), subLine.tripletStartIndex ?? -1)}>
+                                            <button onClick={() => playLine((previewOverrides[globalIndex] || subLine).notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), (previewOverrides[globalIndex] || subLine).tripletStartIndex ?? -1)}>
                                               Play Line
                                             </button>
-                                            <button onClick={() => adjustLineOctave(globalIndex, -1)}>Octave -</button>
-                                            <button onClick={() => adjustLineOctave(globalIndex, +1)}>Octave +</button>
+                                            <button onClick={() => adjustAvailableOctave(globalIndex, -1)}>Octave -</button>
+                                            <button onClick={() => adjustAvailableOctave(globalIndex, +1)}>Octave +</button>
                                             {subLine.notes && subLine.notes.length === 9 && (
                                               <>
                                                 <button onClick={() => adjustLineTriplet(globalIndex, -1)} title="Move triplet back">Triplet ←</button>
@@ -1242,7 +1254,7 @@ function App() {
           return (
             <div>
               <h4 style={{ marginTop: 6 }}>Available Lines <span style={{ marginLeft: 8, fontSize: 12, color: '#666' }}>(total {Object.values(buckets).reduce((s, a) => s + a.length, 0)})</span></h4>
-              <div style={{ maxHeight: 420, overflowY: 'auto', paddingRight: 8 }}>
+              <div style={{ maxHeight: '60vh', overflowY: 'auto', paddingRight: 8 }}>
                 {groups.map((g) => (
                   <Collapsible key={`${g.key}-${currentSequence.length}`} title={`${g.key} (${g.items.length})`} defaultOpen={false}>
                         {g.items.length === 0 ? (
@@ -1251,8 +1263,11 @@ function App() {
                           (() => {
                             const funcBuckets = categorizeByFunction(g.items);
                             const funcOrder = ['Major ii-v', 'Minor ii-v', 'Static Minor', 'Dominant 7', 'Altered Dominant', 'Phrygian Dominant', 'H/W Diminished', 'Tritone Sub', 'Other'];
-                            return funcOrder.map((fKey) => (
-                              <Collapsible key={`${g.key}-${fKey}-sub`} title={`${fKey} (${funcBuckets[fKey].length})`} defaultOpen={false}>
+                            return funcOrder
+                              .filter((fKey) => funcBuckets[fKey] && funcBuckets[fKey].length > 0)
+                              .map((fKey) => (
+                              <div key={`${g.key}-${fKey}`} style={{ marginBottom: 8 }}>
+                                <h5 style={{ margin: '6px 0' }}>{fKey} ({funcBuckets[fKey].length})</h5>
                                 {funcBuckets[fKey].length === 0 ? (
                                   <div style={{ color: '#666', padding: 8 }}>No lines</div>
                                 ) : (
@@ -1287,41 +1302,41 @@ function App() {
                                                 <label style={{ fontSize: 12 }}>Comment / Notes</label>
                                                 <textarea rows={2} style={{ width: '100%', marginTop: 6 }} value={editComment} onChange={(e) => setEditComment(e.target.value)} />
                                               </div>
-                                            <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
-                                              <button onClick={saveEditLine}>Save</button>
-                                              <button onClick={cancelEditLine}>Cancel</button>
-                                            </div>
-                                          </div>
+                                              <div style={{ marginTop: 6, display: 'flex', gap: 8 }}>
+                                                <button onClick={saveEditLine}>Save</button>
+                                                <button onClick={cancelEditLine}>Cancel</button>
+                                              </div>
+                                        </div>
                                         ) : (
                                           <>
-                                            <NotationView notes={subLine.notes} tags={subLine.tags ?? []} highlightIndex={-1} tripletStartIndex={subLine.tripletStartIndex ?? -1} />
-                                            <div style={{ marginTop: 6, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                                              <button onClick={() => selectLine(subLine)}>Select</button>
-                                              <button onClick={() => startEditLine(globalIndex)}>Edit</button>
-                                              <button onClick={() => playLine(subLine.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), subLine.tripletStartIndex ?? -1)}>
-                                                Play Line
-                                              </button>
-                                              <button onClick={() => adjustLineOctave(globalIndex, -1)}>Octave -</button>
-                                              <button onClick={() => adjustLineOctave(globalIndex, +1)}>Octave +</button>
+                                            <NotationView notes={(previewOverrides[globalIndex] || subLine).notes} tags={(previewOverrides[globalIndex] || subLine).tags ?? []} highlightIndex={highlight.area === 'available' && highlight.lineIdx === globalIndex ? highlight.noteIdx : -1} tripletStartIndex={(previewOverrides[globalIndex] || subLine).tripletStartIndex ?? -1} />
+                                              <div style={{ marginTop: 6, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                                                <button onClick={() => selectLine(previewOverrides[globalIndex] || subLine)}>Select</button>
+                                                <button onClick={() => startEditLine(globalIndex)}>Edit</button>
+                                                <button onClick={() => playLine((previewOverrides[globalIndex] || subLine).notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), (previewOverrides[globalIndex] || subLine).tripletStartIndex ?? -1)}>
+                                                  Play Line
+                                                </button>
+                                                <button onClick={() => adjustAvailableOctave(globalIndex, -1)}>Octave -</button>
+                                                <button onClick={() => adjustAvailableOctave(globalIndex, +1)}>Octave +</button>
                                               {subLine.notes && subLine.notes.length === 9 && (
                                                 <>
                                                   <button onClick={() => adjustLineTriplet(globalIndex, -1)} title="Move triplet back">Triplet ←</button>
                                                   <button onClick={() => adjustLineTriplet(globalIndex, +1)} title="Move triplet forward">Triplet →</button>
                                                 </>
                                               )}
-                                              <button onClick={() => removeLine(globalIndex)} style={{ marginLeft: 'auto' }}>Remove</button>
+                                              
                                             </div>
                                             {/* tags shown only in edit UI */}
-                                            {subLine.comment && (
-                                              <div style={{ marginTop: 6, fontSize: 12, color: '#444' }}>Note: {subLine.comment}</div>
-                                            )}
+                                              {subLine.comment && (
+                                                <div style={{ marginTop: 6, fontSize: 12, color: '#444' }}>Note: {subLine.comment}</div>
+                                              )}
                                           </>
                                         )}
                                       </div>
                                     );
                                   })
                                 )}
-                              </Collapsible>
+                              </div>
                             ));
                           })()
                         )}
@@ -1422,7 +1437,7 @@ function App() {
                               </div>
                             ) : (
                               <>
-                                <NotationView notes={subLine.notes} tags={subLine.tags ?? []} highlightIndex={-1} tripletStartIndex={subLine.tripletStartIndex ?? -1} />
+                                <NotationView notes={subLine.notes} tags={subLine.tags ?? []} highlightIndex={highlight.area === 'available' && highlight.lineIdx === globalIndex ? highlight.noteIdx : -1} tripletStartIndex={subLine.tripletStartIndex ?? -1} />
                                 <div style={{ marginTop: 8, display: 'flex', gap: 8, alignItems: 'center' }}>
                                   <button onClick={() => startEditLine(globalIndex)}>Edit</button>
                                   <button onClick={() => playLine(subLine.notes, "8n", (noteIdx) => setHighlight({ area: 'available', lineIdx: globalIndex, noteIdx }), subLine.tripletStartIndex ?? -1)}>
@@ -1436,7 +1451,16 @@ function App() {
                                       <button onClick={() => adjustLineTriplet(globalIndex, +1)} title="Move triplet forward">Triplet →</button>
                                     </>
                                   )}
-                                  <button onClick={() => removeLine(globalIndex)} style={{ marginLeft: 'auto' }}>Delete Line</button>
+                                  <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
+                                    <label style={{ fontSize: 12, color: '#666' }}>Library</label>
+                                    <select value={subLine.libraryId || 'user'} onChange={(e) => updateLineLibrary(globalIndex, e.target.value)} style={{ padding: 6 }}>
+                                      <option value="user">Personal (My Lines)</option>
+                                      {libraries.map(lib => (
+                                        <option key={lib.id} value={lib.id}>{lib.name}</option>
+                                      ))}
+                                    </select>
+                                    <button onClick={() => removeLine(globalIndex)}>Delete Line</button>
+                                  </div>
                                 </div>
                                 {/* tags shown only in edit UI */}
                                 {subLine.comment && (
