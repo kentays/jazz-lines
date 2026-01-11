@@ -1497,10 +1497,10 @@
       "degree": "b3"
     },
     "length": 8,
-    "tags": [
-      "V"
-    ],
     "tripletStartIndex": -1,
+    "tags": [
+      "altered dominant"
+    ],
     "libraryId": "jazz_lines"
   },
   {
@@ -6219,6 +6219,168 @@
     "tripletStartIndex": -1,
     "tags": [
       "major ii-v"
+    ],
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 4,
+        "midi": 64
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 4,
+        "midi": 60
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 3,
+        "midi": 57
+      }
+    ],
+    "intervals": [
+      -2,
+      -4,
+      -3,
+      5,
+      -3,
+      -4,
+      -3
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "A",
+      "accidental": "",
+      "octave": 3,
+      "midi": 57,
+      "degree": "6"
+    },
+    "length": 8,
+    "tripletStartIndex": -1,
+    "tags": [
+      "dominant 7"
+    ],
+    "libraryId": "jazz_lines"
+  },
+  {
+    "notes": [
+      {
+        "letter": "B",
+        "accidental": "",
+        "octave": 4,
+        "midi": 71
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "F",
+        "accidental": "",
+        "octave": 4,
+        "midi": 65
+      },
+      {
+        "letter": "D",
+        "accidental": "",
+        "octave": 4,
+        "midi": 62
+      },
+      {
+        "letter": "A",
+        "accidental": "",
+        "octave": 4,
+        "midi": 69
+      },
+      {
+        "letter": "G",
+        "accidental": "",
+        "octave": 4,
+        "midi": 67
+      },
+      {
+        "letter": "E",
+        "accidental": "",
+        "octave": 4,
+        "midi": 64
+      },
+      {
+        "letter": "C",
+        "accidental": "",
+        "octave": 4,
+        "midi": 60
+      }
+    ],
+    "intervals": [
+      -2,
+      -4,
+      -3,
+      7,
+      -2,
+      -3,
+      -4
+    ],
+    "start": {
+      "letter": "B",
+      "accidental": "",
+      "octave": 4,
+      "midi": 71,
+      "degree": "7"
+    },
+    "end": {
+      "letter": "C",
+      "accidental": "",
+      "octave": 4,
+      "midi": 60,
+      "degree": "1"
+    },
+    "length": 8,
+    "tripletStartIndex": -1,
+    "tags": [
+      "dominant 7"
     ],
     "libraryId": "jazz_lines"
   }
