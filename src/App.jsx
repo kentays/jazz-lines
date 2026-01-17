@@ -512,12 +512,13 @@ function App() {
 
   // Load only default lines (library)
   const loadDefaultLines = () => {
-    const ok = window.confirm("Load default libraries? This will add default libraries (Jazz Lines, Hexatonic Lines) to your library.");
+    const ok = window.confirm("Load default libraries? This will add default libraries (Jazz Lines, Hexatonic Lines, Major ii-v Lines) to your library.");
     if (!ok) return;
 
     const DEFAULTS = [
       { path: `${BASE}jazz_lines.json`, id: "jazz_lines", name: "Jazz Lines" },
-      { path: `${BASE}hexatonic_lines.json`, id: "hexatonic_lines", name: "Hexatonic Lines" }
+      { path: `${BASE}hexatonic_lines.json`, id: "hexatonic_lines", name: "Hexatonic Lines" },
+      { path: `${BASE}major_ii-v_lines.json`, id: "major_ii-v_lines", name: "Major ii-V Lines" }
     ];
 
     Promise.allSettled(DEFAULTS.map(d => fetch(d.path).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })))
